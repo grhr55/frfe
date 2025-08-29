@@ -131,7 +131,7 @@ export default function FullStackPortfolio() {
               <h3 className="text-2xl font-bold mb-4 text-center">{product.name}</h3>
 
               <Image
-                src={`https://rgree.onrender.com/portfol${product.img}`}
+                src={`https://rgree.onrender.com/portfol/${product.img}`}
                 alt={product.name}
                 width={400}
                 height={250}
