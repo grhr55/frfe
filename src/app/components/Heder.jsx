@@ -13,7 +13,7 @@ export default function FullStackPortfolio() {
   // fetch вместо axios
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:2000/portfol/porf");
+      const res = await fetch("https://rgree.onrender.com/portfol/porf");
       if (!res.ok) throw new Error("Ошибка загрузки данных");
       const data = await res.json();
       setProducts(data);
