@@ -142,7 +142,7 @@ export default function FullStackPortfolio() {
               {product.figma && (
                 <a href={product.figma} target="_blank" rel="noopener noreferrer" className="mb-4 w-full">
                   <button className="w-full px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition-all">
-                    Дизайн
+                    Дизайн Верстка
                   </button>
                 </a>
               )}
