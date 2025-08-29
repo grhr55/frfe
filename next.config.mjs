@@ -1,14 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "http",
-        hostname: "localhost",
-        port: "2000", // 👈 твой порт сервера
-        pathname: "/portfol/uploads/**",
-      },
-    ],
+images: {
+    domains: ['rgree.onrender.com'], // сюда добавь хост
   },
 };
 export default nextConfig;

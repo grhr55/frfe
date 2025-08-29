@@ -10,7 +10,7 @@ export default function FullStackPortfolio() {
   const controls = useAnimation();
   const [showProjects, setShowProjects] = useState(false);
 
-  // fetch вместо axios
+
   const fetchProducts = async () => {
     try {
       const res = await fetch("https://rgree.onrender.com/portfol/porf");
@@ -111,54 +111,79 @@ export default function FullStackPortfolio() {
           </button>
         </Link>
       </motion.div>
+{/* Projects Section */}
+{showProjects && (
+  <motion.div
+    className="w-full flex justify-center"
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+  >
+    <div className="flex flex-wrap justify-center gap-8 max-w-[1600px] px-6">
+      {products.map((product, index) => {
+        const gradients = [
+          "linear-gradient(120deg, #f59e0b, #3b82f6)",
+          "linear-gradient(120deg, #9333ea, #10b981)",
+          "linear-gradient(120deg, #f43f5e, #fbbf24)",
+          "linear-gradient(120deg, #3b82f6, #f59e0b)"
+        ];
 
-      {/* Projects Section */}
-      {showProjects && (
-        <motion.div
-          className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          {products.map((product, index) => (
-            <motion.div
-              key={index}
-              className="bg-white/10 backdrop-blur-sm p-6 rounded-3xl shadow-2xl border border-white/20 hover:scale-105 hover:shadow-3xl transition-all cursor-pointer flex flex-col items-center"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
-            >
-              <h3 className="text-2xl font-bold mb-4 text-center">{product.name}</h3>
+        return (
+          <motion.div
+            key={index}
+            style={{ background: gradients[index % gradients.length] }}
+            className="p-6 rounded-3xl shadow-xl 
+                       hover:scale-105 hover:shadow-2xl transition-all duration-300 
+                       cursor-pointer flex flex-col w-[280px] sm:w-[320px] lg:w-[350px]"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.15 }}
+          >
+            {/* Название проекта */}
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 text-center text-white drop-shadow-md">
+              {product.name}
+            </h3>
 
-              <Image
-                src={`https://rgree.onrender.com/portfol/${product.img}`}
-                alt={product.name}
-                width={400}
-                height={250}
-                className="rounded-lg object-cover mb-4"
-                loading="lazy"
-              />
+            {/* Изображение */}
+            <Image
+              src={`https://rgree.onrender.com/portfol${product.img}`}
+              alt={product.name}
+              width={800}
+              height={1000}
+              className="rounded-xl object-cover mb-4  w-full h-[100%]"
+            />
 
-              {product.figma && (
-                <a href={product.figma} target="_blank" rel="noopener noreferrer" className="mb-4 w-full">
-                  <button className="w-full px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition-all">
-                    Дизайн Верстка
-                  </button>
-                </a>
-              )}
+            {/* Кнопки */}
+            <div className="flex flex-col gap-3 mb-4">
               {product.orig && (
-                <a href={product.orig} target="_blank" rel="noopener noreferrer" className="mb-4 w-full">
-                  <button className="w-full px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition-all">
+                <a href={product.orig} target="_blank" rel="noopener noreferrer">
+                  <button className="w-full px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition-colors shadow-md">
                     Верстка
                   </button>
                 </a>
               )}
+              {product.figma && (
+                <a href={product.figma} target="_blank" rel="noopener noreferrer">
+                  <button className="w-full px-6 py-3 rounded-xl bg-black/70 text-white font-semibold hover:bg-black transition-colors shadow-md">
+                    Дизайн Верстка
+                  </button>
+                </a>
+              )}
+            </div>
 
-              <p className="text-white/90 text-sm md:text-base text-center">{product.opis}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      )}
+            {/* Описание */}
+            <p className="text-white text-sm md:text-base text-center leading-relaxed drop-shadow">
+              {product.opis}
+            </p>
+          </motion.div>
+        );
+      })}
+    </div>
+  </motion.div>
+)}
+
+
+
     </motion.div>
   );
 } 
