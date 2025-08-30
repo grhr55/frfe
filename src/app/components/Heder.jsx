@@ -148,8 +148,8 @@ export default function FullStackPortfolio() {
             <Image
               src={`https://rgree.onrender.com/portfol${product.img}`}
               alt={product.name}
-              width={400}
-              height={600}
+              width={300}
+              height={400}
               className="rounded-xl object-cover mb-4  w-full h-[100%]"
             />
 
