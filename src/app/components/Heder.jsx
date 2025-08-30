@@ -129,53 +129,57 @@ export default function FullStackPortfolio() {
         ];
 
         return (
-          <motion.div
-            key={index}
-            style={{ background: gradients[index % gradients.length] }}
-            className="p-6 rounded-3xl shadow-xl 
-                       hover:scale-105 hover:shadow-2xl transition-all duration-300 
-                       cursor-pointer flex flex-col w-[280px] sm:w-[320px] lg:w-[350px]"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.15 }}
-          >
-            {/* Название проекта */}
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 text-center text-white drop-shadow-md">
-              {product.name}
-            </h3>
+        <motion.div
+  key={index}
+  style={{ background: gradients[index % gradients.length] }}
+  className="rounded-3xl shadow-xl hover:scale-105 hover:shadow-2xl 
+             transition-all duration-300 cursor-pointer flex flex-col
+             w-full sm:w-[300px] md:w-[340px] lg:w-[360px] max-w-[380px]
+             min-h-[480px] p-6"
+  initial={{ opacity: 0, y: 50 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: index * 0.15 }}
+>
+  {/* Название проекта */}
+  <h3 className="text-2xl font-bold mb-4 text-center text-white drop-shadow-md">
+    {product.name}
+  </h3>
 
-            {/* Изображение */}
-            <Image
-              src={`https://rgree.onrender.com/portfol${product.img}`}
-              alt={product.name}
-              width={300}
-              height={400}
-              className="rounded-xl object-cover mb-4  w-full h-[100%]"
-            />
+  {/* Контейнер изображения */}
+  <div className="w-full h-48 mb-4 overflow-hidden rounded-xl border border-white/30 shadow-inner">
+    <Image
+      src={`https://rgree.onrender.com/portfol${product.img}`}
+      alt={product.name}
+      width={400}
+      height={300}
+      className="w-full h-full object-cover"
+    />
+  </div>
 
-            {/* Кнопки */}
-            <div className="flex flex-col gap-3 mb-4">
-              {product.orig && (
-                <a href={product.orig} target="_blank" rel="noopener noreferrer">
-                  <button className="w-full px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition-colors shadow-md">
-                    Верстка
-                  </button>
-                </a>
-              )}
-              {product.figma && (
-                <a href={product.figma} target="_blank" rel="noopener noreferrer">
-                  <button className="w-full px-6 py-3 rounded-xl bg-black/70 text-white font-semibold hover:bg-black transition-colors shadow-md">
-                    Дизайн Верстка
-                  </button>
-                </a>
-              )}
-            </div>
+  {/* Кнопки */}
+  <div className="flex flex-col gap-3 mb-4 flex-grow justify-center">
+    {product.orig && (
+      <a href={product.orig} target="_blank" rel="noopener noreferrer">
+        <button className="w-full px-6 py-3 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition-colors shadow-md">
+          Ready layout
+        </button>
+      </a>
+    )}
+    {product.figma && (
+      <a href={product.figma} target="_blank" rel="noopener noreferrer">
+        <button className="w-full px-6 py-3 rounded-xl bg-black/70 text-white font-semibold hover:bg-black transition-colors shadow-md">
+          Design Layout
+        </button>
+      </a>
+    )}
+  </div>
 
-            {/* Описание */}
-            <p className="text-white text-sm md:text-base text-center leading-relaxed drop-shadow">
-              {product.opis}
-            </p>
-          </motion.div>
+  {/* Описание */}
+  <p className="text-white text-sm md:text-base text-center leading-relaxed drop-shadow">
+    {product.opis}
+  </p>
+</motion.div>
+
         );
       })}
     </div>
