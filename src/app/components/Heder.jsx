@@ -47,7 +47,7 @@ export default function FullStackPortfolio() {
 
   return (
     <motion.div
-      className="w-screen min-h-screen flex flex-col items-center justify-center text-center text-white m-6 relative overflow-hidden"
+      className="w-screen min-h-screen flex flex-col items-center justify-center text-center text-white p-4 relative overflow-hidden"
       animate={controls}
     >
       {/* Hero Section */}
