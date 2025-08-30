@@ -119,7 +119,7 @@ export default function FullStackPortfolio() {
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8 }}
   >
-    <div className="flex flex-wrap justify-center gap-8 max-w-[1600px] px-6">
+    <div className="flex flex-wrap justify-center gap-8 max-w-[1600px] ">
       {products.map((product, index) => {
         const gradients = [
           "linear-gradient(120deg, #f59e0b, #3b82f6)",
