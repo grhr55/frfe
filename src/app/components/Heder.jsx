@@ -231,49 +231,48 @@ const handleReaction = async (type) => {
 
 
 
-  <div className="flex justify-center gap-6 p-8">
-  {/* Кнопка 1 */}
+<div className="flex justify-center gap-6 p-8">
+  {/* Кнопка лайка */}
   <motion.button
-     onClick={() => handleReaction("like")} 
-     style={{ color: userReaction === "like" ? "green" : "black" }}
-
+    onClick={() => handleReaction("like")}
     className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
-    animate={{ scale: liuk ? 1.2 : 1 }}
+    animate={{ scale: userReaction === "like" ? 1.2 : 1 }}
     transition={{ type: "spring", stiffness: 300, damping: 15 }}
   >
     <img
       src="/img/fef.png"
       className="w-12 h-12 mb-2"
       style={{
-        filter: liuk
-          ? "brightness(0) saturate(100%) invert(63%) sepia(52%) saturate(482%) hue-rotate(74deg) brightness(95%) contrast(92%)"
-          : "none"
+        filter:
+          userReaction === "like"
+            ? "brightness(0) saturate(100%) invert(63%) sepia(52%) saturate(482%) hue-rotate(74deg) brightness(95%) contrast(92%)"
+            : "none"
       }}
     />
     <span className="text-xl font-semibold text-white">{likes}</span>
   </motion.button>
 
-  {/* Кнопка 2 */}
+  {/* Кнопка дизлайка */}
   <motion.button
-      onClick={() => handleReaction("dislike")} 
-  style={{ color: userReaction === "dislike" ? "red" : "black" }}
-
+    onClick={() => handleReaction("dislike")}
     className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
-    animate={{ scale: duzliuk ? 1.2 : 1 }}
+    animate={{ scale: userReaction === "dislike" ? 1.2 : 1 }}
     transition={{ type: "spring", stiffness: 300, damping: 15 }}
   >
     <img
       src="/img/like 1 (1).png"
       className="w-12 h-12 mb-2"
       style={{
-        filter: duzliuk
-          ? "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(600%) hue-rotate(350deg) brightness(95%) contrast(105%)"
-          : "none"
+        filter:
+          userReaction === "dislike"
+            ? "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(600%) hue-rotate(350deg) brightness(95%) contrast(105%)"
+            : "none"
       }}
     />
     <span className="text-xl font-semibold text-white">{dislikes}</span>
   </motion.button>
 </div>
+
 { !coments ? null:(<div>
   <form onSubmit={handleReaction}>
  <input
