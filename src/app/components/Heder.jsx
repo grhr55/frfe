@@ -17,56 +17,48 @@ export default function FullStackPortfolio() {
 
 
 
+// создаём уникальный clientId для устройства
+  useEffect(() => {
+    if (!localStorage.getItem("clientId")) {
+      localStorage.setItem("clientId", crypto.randomUUID());
+    }
+  }, []);
 
-  const fetchProducts = async () => {
+  const clientId = localStorage.getItem("clientId");
+
+  // получение лайков и дизлайков
+  const fetchReactions = async () => {
     try {
-      const res = await fetch("https://rgree.onrender.com/portfol/porf");
-      if (!res.ok) throw new Error("Ошибка загрузки данных");
+      const res = await fetch("https://rgree.onrender.com/lice");
       const data = await res.json();
-      setProducts(data);
-    } catch (error) {
-      console.error("Ошибка при загрузке товаров:", error);
+      setProducts(data)
+      setLikes(data.likes);
+      setDislikes(data.dislikes);
+    } catch (err) {
+      console.error("Ошибка загрузки реакций:", err);
     }
   };
 
   useEffect(() => {
-    fetchProducts();
+    fetchReactions();
   }, []);
 
-
-
-useEffect(() => {
-  const fetchReactions = async () => {
+  
+  const handleReaction = async (type) => {
     try {
-      const res = await fetch("https://rgree.onrender.com/likos/lice");
+      const res = await fetch("https://rgree.onrender.com/reaction", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: type, clientId })
+      });
       const data = await res.json();
-      const totalLikes = data.filter(item => item.reaction === "like").length;
-      const totalDislikes = data.filter(item => item.reaction === "dislike").length;
-      setLikes(totalLikes);
-      setDislikes(totalDislikes);
-      // можно хранить userReaction, если сервер возвращает по IP (нужно доработать API)
-    } catch (error) {
-      console.error("Ошибка загрузки реакций:", error);
+      setLikes(data.likes);
+      setDislikes(data.dislikes);
+      setUserReaction(data.userReaction);
+    } catch (err) {
+      console.error("Ошибка отправки реакции:", err);
     }
   };
-  fetchReactions();
-}, []);
-
-const handleReaction = async (type) => {
-  try {
-    const res = await fetch("https://rgree.onrender.com/likos/reaction", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: type })
-    });
-    const data = await res.json();
-    setLikes(data.likes);
-    setDislikes(data.dislikes);
-    setUserReaction(data.userReaction);
-  } catch (error) {
-    console.error("Ошибка отправки реакции:", error);
-  }
-};
 
 
   
