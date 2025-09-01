@@ -9,12 +9,9 @@ export default function FullStackPortfolio() {
   const [products, setProducts] = useState([]);
   const controls = useAnimation();
   const [showProjects, setShowProjects] = useState(false);
-
-  const [liuk ,setliuk] = useState(false)
-  const [duzliuk ,setduzliuk] = useState(false)
-
-  const [colliuk ,setcolliuk] =useState(0)
-  const [cobuze ,setcobuze] = useState(0)
+  const [userReaction, setUserReaction] = useState(null);
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
 
   const [coments,setcoments] = useState(false)
 
@@ -39,44 +36,35 @@ export default function FullStackPortfolio() {
 
 
 useEffect(() => {
-  const fetchLice = async () => {
+  const fetchReactions = async () => {
     try {
       const res = await fetch("https://rgree.onrender.com/likos/lice");
-      if (!res.ok) throw new Error("Ошибка загрузки лайков");
       const data = await res.json();
-
-      // если возвращается массив лайков
-      const totalColliuk = data.reduce((acc, item) => acc + item.colliuk, 0);
-      const totalCobuze = data.reduce((acc, item) => acc + item.cobuze, 0);
-
-      setcolliuk(totalColliuk);
-      setcobuze(totalCobuze);
+      const totalLikes = data.filter(item => item.reaction === "like").length;
+      const totalDislikes = data.filter(item => item.reaction === "dislike").length;
+      setLikes(totalLikes);
+      setDislikes(totalDislikes);
+      // можно хранить userReaction, если сервер возвращает по IP (нужно доработать API)
     } catch (error) {
-      console.error(error);
+      console.error("Ошибка загрузки реакций:", error);
     }
   };
-
-  fetchLice();
+  fetchReactions();
 }, []);
 
-
-const postProduct = async (newColliuk, newCobuze) => {
+const handleReaction = async (type) => {
   try {
-    const res = await fetch("https://rgree.onrender.com/likos/ip", {
+    const res = await fetch("https://rgree.onrender.com/likos/reaction", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ colliuk: newColliuk, cobuze: newCobuze }),
+      body: JSON.stringify({ action: type })
     });
-
-    if (!res.ok) {
-      const errText = await res.text();
-      throw new Error("Ошибка при отправке лайков: " + errText);
-    }
-
     const data = await res.json();
-    console.log("Ответ сервера:", data);
+    setLikes(data.likes);
+    setDislikes(data.dislikes);
+    setUserReaction(data.userReaction);
   } catch (error) {
-    console.error("Ошибка POST-запроса:", error);
+    console.error("Ошибка отправки реакции:", error);
   }
 };
 
@@ -102,34 +90,6 @@ const postProduct = async (newColliuk, newCobuze) => {
 
 
 
-const factions = () => {
-  const newLiuk = !liuk;
-  setliuk(newLiuk);
-  setduzliuk(false);
-
-  setcolliuk(prev => prev + (newLiuk ? 1 : -1));
-  setcobuze(prev => prev - (duzliuk ? 1 : 0)); // если нужно уменьшить дизлайк
-
-  postProduct(newLiuk ? 1 : -1, 0);
-  
-};
-
-
-
-const faction = () => {
-  const newDuzliuk = !duzliuk;
-  setduzliuk(newDuzliuk);
-  setliuk(false);
-
-  setcobuze(prev => prev + (newDuzliuk ? 1 : -1));
-  setcolliuk(prev => prev - (liuk ? 1 : 0));
-
-  postProduct(0, newDuzliuk ? 1 : -1);
- 
-};
-
-
-
 
 
   return (
@@ -141,7 +101,7 @@ const faction = () => {
 
       <div className="absolute z-10">
   <AnimatePresence>
-    {liuk && (
+    {likes && (
       <motion.h1
         className="text-[120px] "
         initial={{ opacity: 0, scale: 1, y: 90 }}
@@ -292,7 +252,9 @@ const faction = () => {
   <div className="flex justify-center gap-6 p-8">
   {/* Кнопка 1 */}
   <motion.button
-    onClick={factions}
+     onClick={() => handleReaction("like")} 
+     style={{ color: userReaction === "like" ? "green" : "black" }}
+
     className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
     animate={{ scale: liuk ? 1.2 : 1 }}
     transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -306,12 +268,14 @@ const faction = () => {
           : "none"
       }}
     />
-    <span className="text-xl font-semibold text-white">{colliuk}</span>
+    <span className="text-xl font-semibold text-white">{likes}</span>
   </motion.button>
 
   {/* Кнопка 2 */}
   <motion.button
-    onClick={faction}
+      onClick={() => handleReaction("dislike")} 
+  style={{ color: userReaction === "dislike" ? "red" : "black" }}
+
     className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
     animate={{ scale: duzliuk ? 1.2 : 1 }}
     transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -325,11 +289,11 @@ const faction = () => {
           : "none"
       }}
     />
-    <span className="text-xl font-semibold text-white">{cobuze}</span>
+    <span className="text-xl font-semibold text-white">{dislikes}</span>
   </motion.button>
 </div>
 { !coments ? null:(<div>
-  <form onSubmit={postProduct}>
+  <form onSubmit={handleReaction}>
  <input
   type="text"
   placeholder="Почему??"
