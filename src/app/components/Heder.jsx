@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation  ,AnimatePresence} from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -9,6 +9,16 @@ export default function FullStackPortfolio() {
   const [products, setProducts] = useState([]);
   const controls = useAnimation();
   const [showProjects, setShowProjects] = useState(false);
+
+  const [liuk ,setliuk] = useState(false)
+  const [duzliuk ,setduzliuk] = useState(false)
+
+  const [colliuk ,setcolliuk] =useState(0)
+  const [cobuze ,setcobuze] = useState(0)
+
+  const [coments,setcoments] = useState(false)
+
+
 
 
   const fetchProducts = async () => {
@@ -26,7 +36,52 @@ export default function FullStackPortfolio() {
     fetchProducts();
   }, []);
 
-  // анимация градиента
+
+
+useEffect(() => {
+  const fetchLice = async () => {
+    try {
+      const res = await fetch("https://rgree.onrender.com/likos/lice");
+      if (!res.ok) throw new Error("Ошибка загрузки лайков");
+      const data = await res.json();
+
+      // если возвращается массив лайков
+      const totalColliuk = data.reduce((acc, item) => acc + item.colliuk, 0);
+      const totalCobuze = data.reduce((acc, item) => acc + item.cobuze, 0);
+
+      setcolliuk(totalColliuk);
+      setcobuze(totalCobuze);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchLice();
+}, []);
+
+
+const postProduct = async (newColliuk, newCobuze) => {
+  try {
+    const res = await fetch("https://rgree.onrender.com/likos/ip", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ colliuk: newColliuk, cobuze: newCobuze }),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error("Ошибка при отправке лайков: " + errText);
+    }
+
+    const data = await res.json();
+    console.log("Ответ сервера:", data);
+  } catch (error) {
+    console.error("Ошибка POST-запроса:", error);
+  }
+};
+
+
+  
   useEffect(() => {
     controls.start({
       background: [
@@ -45,12 +100,63 @@ export default function FullStackPortfolio() {
     "Python", "GitHub", "Figma"
   ];
 
+
+
+const factions = () => {
+  const newLiuk = !liuk;
+  setliuk(newLiuk);
+  setduzliuk(false);
+
+  setcolliuk(prev => prev + (newLiuk ? 1 : -1));
+  setcobuze(prev => prev - (duzliuk ? 1 : 0)); // если нужно уменьшить дизлайк
+
+  postProduct(newLiuk ? 1 : -1, 0);
+  
+};
+
+
+
+const faction = () => {
+  const newDuzliuk = !duzliuk;
+  setduzliuk(newDuzliuk);
+  setliuk(false);
+
+  setcobuze(prev => prev + (newDuzliuk ? 1 : -1));
+  setcolliuk(prev => prev - (liuk ? 1 : 0));
+
+  postProduct(0, newDuzliuk ? 1 : -1);
+ 
+};
+
+
+
+
+
   return (
     <motion.div
-      className="w-screen min-h-screen flex flex-col items-center justify-center text-center text-white p-4 relative overflow-hidden"
+      className="w-screen min-h-screen flex flex-col items-center justify-center text-center text-white p-4  overflow-hidden absolute z-40"
       animate={controls}
     >
-      {/* Hero Section */}
+        
+
+      <div className="absolute z-10">
+  <AnimatePresence>
+    {liuk && (
+      <motion.h1
+        className="text-[120px] "
+        initial={{ opacity: 0, scale: 1, y: 90 }}
+        animate={{ opacity: 10, scale: 1.4, y: 0 }}
+        exit={{ opacity: 5, scale: 0.8, y: -500 }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+      >
+      <div>❤️</div>
+      
+      
+      </motion.h1>
+    )}
+  </AnimatePresence>
+</div>
+      
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -111,15 +217,17 @@ export default function FullStackPortfolio() {
           </button>
         </Link>
       </motion.div>
-{/* Projects Section */}
+
+
+
 {showProjects && (
   <motion.div
-    className="w-full flex justify-center"
+    className=" w-[100%] flex justify-center"
     initial={{ opacity: 0, y: 50 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8 }}
   >
-    <div className="flex flex-wrap justify-center gap-8 max-w-[1600px] ">
+    <div className="flex flex-wrap justify-center gap-8 max-w-[100%] ">
       {products.map((product, index) => {
         const gradients = [
           "linear-gradient(120deg, #f59e0b, #3b82f6)",
@@ -173,11 +281,88 @@ export default function FullStackPortfolio() {
       </a>
     )}
   </div>
-
+  
   {/* Описание */}
   <p className="text-white text-sm md:text-base text-center leading-relaxed drop-shadow">
     {product.opis}
   </p>
+
+
+
+  <div className="flex justify-center gap-6 p-8">
+  {/* Кнопка 1 */}
+  <motion.button
+    onClick={factions}
+    className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
+    animate={{ scale: liuk ? 1.2 : 1 }}
+    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+  >
+    <img
+      src="/img/fef.png"
+      className="w-12 h-12 mb-2"
+      style={{
+        filter: liuk
+          ? "brightness(0) saturate(100%) invert(63%) sepia(52%) saturate(482%) hue-rotate(74deg) brightness(95%) contrast(92%)"
+          : "none"
+      }}
+    />
+    <span className="text-xl font-semibold text-white">{colliuk}</span>
+  </motion.button>
+
+  {/* Кнопка 2 */}
+  <motion.button
+    onClick={faction}
+    className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
+    animate={{ scale: duzliuk ? 1.2 : 1 }}
+    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+  >
+    <img
+      src="/img/like 1 (1).png"
+      className="w-12 h-12 mb-2"
+      style={{
+        filter: duzliuk
+          ? "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(600%) hue-rotate(350deg) brightness(95%) contrast(105%)"
+          : "none"
+      }}
+    />
+    <span className="text-xl font-semibold text-white">{cobuze}</span>
+  </motion.button>
+</div>
+{ !coments ? null:(<div>
+  <form onSubmit={postProduct}>
+ <input
+  type="text"
+  placeholder="Почему??"
+  className="
+    w-full max-w-md
+    px-4 py-3
+    border-2 border-gray-400
+    rounded-2xl
+    bg-white/80
+    placeholder-gray-500
+    text-gray-900
+    focus:outline-none
+    focus:border-blue-500 focus:ring-2 focus:ring-blue-200
+    shadow-sm
+    transition-all duration-300
+    hover:shadow-md
+  "
+/>
+  <button type='submit'>Отправить</button>
+  </form>
+ 
+
+
+</div>)}
+
+
+
+   
+    
+       
+      
+    
+
 </motion.div>
 
         );
