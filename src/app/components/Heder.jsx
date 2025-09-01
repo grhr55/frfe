@@ -94,29 +94,11 @@ const handleReaction = async (type) => {
 
   return (
     <motion.div
-      className="w-screen min-h-screen flex flex-col items-center justify-center text-center text-white p-4  overflow-hidden absolute z-40"
+      className="w-screen min-h-screen flex flex-col items-center justify-center text-center text-white p-4  overflow-hidden relative"
       animate={controls}
     >
         
 
-      <div className="absolute z-10">
-  <AnimatePresence>
-    {likes && (
-      <motion.h1
-        className="text-[120px] "
-        initial={{ opacity: 0, scale: 1, y: 90 }}
-        animate={{ opacity: 10, scale: 1.4, y: 0 }}
-        exit={{ opacity: 5, scale: 0.8, y: -500 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
-      >
-      <div>❤️</div>
-      
-      
-      </motion.h1>
-    )}
-  </AnimatePresence>
-</div>
-      
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
