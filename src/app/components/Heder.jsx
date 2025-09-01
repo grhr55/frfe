@@ -29,7 +29,7 @@ export default function FullStackPortfolio() {
   // получение лайков и дизлайков
   const fetchReactions = async () => {
     try {
-      const res = await fetch("https://rgree.onrender.com/lice");
+      const res = await fetch("https://rgree.onrender.com/likos/lice");
       const data = await res.json();
       setProducts(data)
       setLikes(data.likes);
@@ -46,7 +46,7 @@ export default function FullStackPortfolio() {
   
   const handleReaction = async (type) => {
     try {
-      const res = await fetch("https://rgree.onrender.com/reaction", {
+      const res = await fetch("https://rgree.onrender.com/likos/reaction", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: type, clientId })
