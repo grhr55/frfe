@@ -41,37 +41,51 @@ export default function FullStackPortfolio() {
 
 
 
-
-
-
-const fetchProderucts = async () => {
+  const fetchProderucts = async () => {
   try {
     const res = await fetch("https://rgree.onrender.com/likos/lice");
     if (!res.ok) throw new Error("Ошибка загрузки данных");
-    
-    const data = await res.json();
 
-    setLikeCount(Number(data.likeCount) || 0);
-    setDizlace(Number(data.dizlace) || 0);
-    setcoment(data.coment || ""); // лучше строкой, а не 0
-     setViews(data.views || 0);
+    const data = await res.json();
+    const item = Array.isArray(data) ? data[0] : data;
+
+    setLikeCount(Number(item.likeCount) || 0);
+    setDizlace(Number(item.dizlace) || 0);
+    setcoment(item.coment || "");
+    setViews(Number(item.views) || 0);
+
   } catch (error) {
     console.error("Ошибка при загрузке товаров:", error);
   }
 
+  // Проверка локальных лайков/дизлайков
   const hasLiked = localStorage.getItem("liked") === "true";
   const hasDisliked = localStorage.getItem("disliked") === "true";
-  const hasViewed = localStorage.getItem("viewed") === "true";
   setLiked(hasLiked);
   setDisliked(hasDisliked);
-  setViews(hasViewed)
-  localStorage.setItem("viewed", "true");
+
+  // Проверка просмотров
+  const hasViewed = localStorage.getItem("viewed") === "true";
+  if (!hasViewed) {
+    setViews(prev => prev + 1);
+    localStorage.setItem("viewed", "true");
+  }
+
+  // Проверяем deviceId
+  let deviceId = localStorage.getItem('deviceId');
+  if (!deviceId) {
+    deviceId = crypto.randomUUID();
+    localStorage.setItem('deviceId', deviceId);
+  }
 };
+useEffect( () => {
+  fetchProderucts()
+},[])
 
 
-useEffect(() => {
-  fetchProderucts();
-}, []);
+
+
+
 
 
   
