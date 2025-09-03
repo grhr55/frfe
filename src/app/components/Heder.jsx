@@ -1,63 +1,175 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useAnimation  ,AnimatePresence} from "framer-motion";
+import { motion, useAnimation  } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function FullStackPortfolio() {
   const [products, setProducts] = useState([]);
   const controls = useAnimation();
-  const [showProjects, setShowProjects] = useState(false);
-  const [userReaction, setUserReaction] = useState(null);
-  const [likes, setLikes] = useState(0);
-  const [dislikes, setDislikes] = useState(0);
-
-  const [coments,setcoments] = useState(false)
 
 
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [dizlace, setDizlace] = useState(0);
+  const [views, setViews] = useState(0);
+  const [coment, setcoment] = useState('');
+  const [vidcoment ,setvidcoment] = useState(true)
+  const [vid ,setvid] = useState(true)
+ 
 
-// создаём уникальный clientId для устройства
-  useEffect(() => {
-    if (!localStorage.getItem("clientId")) {
-      localStorage.setItem("clientId", crypto.randomUUID());
-    }
-  }, []);
 
-  const clientId = localStorage.getItem("clientId");
 
-  // получение лайков и дизлайков
-  const fetchReactions = async () => {
-    try {
-      const res = await fetch("https://rgree.onrender.com/likos/lice");
-      const data = await res.json();
-      setProducts(data)
-      setLikes(data.likes);
-      setDislikes(data.dislikes);
-    } catch (err) {
-      console.error("Ошибка загрузки реакций:", err);
-    }
-  };
 
-  useEffect(() => {
-    fetchReactions();
-  }, []);
+
+
+
+
+
+
+  const fetchProducts = async () => { try { const res = await fetch("https://rgree.onrender.com/portfol/porf"); 
+    if (!res.ok) throw new Error("Ошибка загрузки данных"); const data = await res.json(); 
+    setProducts(data)
+            
+       } catch (error) { console.error("Ошибка при загрузке товаров:", error); } 
+
+   
+      };
+        useEffect(() => { fetchProducts(); }, []);
+
+
+
+
+
+
+const fetchProderucts = async () => {
+  try {
+    const res = await fetch("https://rgree.onrender.com/likos/lice");
+    if (!res.ok) throw new Error("Ошибка загрузки данных");
+    
+    const data = await res.json();
+
+    setLikeCount(Number(data.likeCount) || 0);
+    setDizlace(Number(data.dizlace) || 0);
+    setcoment(data.coment || ""); // лучше строкой, а не 0
+     setViews(data.views || 0);
+  } catch (error) {
+    console.error("Ошибка при загрузке товаров:", error);
+  }
+
+  const hasLiked = localStorage.getItem("liked") === "true";
+  const hasDisliked = localStorage.getItem("disliked") === "true";
+  const hasViewed = localStorage.getItem("viewed") === "true";
+  setLiked(hasLiked);
+  setDisliked(hasDisliked);
+  setViews(hasViewed)
+  localStorage.setItem("viewed", "true");
+};
+
+
+useEffect(() => {
+  fetchProderucts();
+}, []);
+
 
   
-  const handleReaction = async (type) => {
+  const handleReaction = async ( likeCount, dizlace) => {
+    
     try {
       const res = await fetch("https://rgree.onrender.com/likos/reaction", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: type, clientId })
+        body: JSON.stringify({ likeCount,dizlace, coment, views })
       });
-      const data = await res.json();
-      setLikes(data.likes);
-      setDislikes(data.dislikes);
-      setUserReaction(data.userReaction);
+     
+      
+      
+  
+
     } catch (err) {
       console.error("Ошибка отправки реакции:", err);
     }
+  };
+
+    const handleReact = async (e) => {
+      e.preventDefault();
+    
+    try {
+      const res = await fetch("https://rgree.onrender.com/likos/reaction", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ coment })
+      });
+       setvidcoment(true)
+       setcoment('')
+      
+      
+  
+
+    } catch (err) {
+      console.error("Ошибка отправки реакции:", err);
+    }
+  };
+
+  const handleLike = () => {
+    let newLikeCount = likeCount;
+    let newDizCount = dizlace;
+
+    if (liked) {
+      newLikeCount = Math.max(0, likeCount - 1);
+      setLiked(false);
+      localStorage.setItem('liked', 'false');
+    } else {
+      newLikeCount = likeCount + 1;
+      setLiked(true);
+      localStorage.setItem('liked', 'true');
+      setvidcoment(true)
+
+      if (disliked) {
+        newDizCount = Math.max(0, dizlace - 1);
+        setDisliked(false);
+        localStorage.setItem('disliked', 'false');
+        setDizlace(newDizCount);
+      }
+    }
+
+    
+
+    setLikeCount(newLikeCount);
+    handleReaction(newLikeCount, newDizCount);
+  };
+
+
+  
+  const handleDislike = () => {
+    let newDizCount = dizlace;
+    let newLikeCount = likeCount;
+   
+
+    if (disliked) {
+      newDizCount = Math.max(0, dizlace - 1);
+      setDisliked(false);
+      localStorage.setItem('disliked', 'false');
+       setvidcoment(true)
+
+    } else {
+      newDizCount = dizlace + 1;
+      setDisliked(true);
+      localStorage.setItem('disliked', 'true');
+       setvidcoment(false)
+
+      if (liked) {
+        newLikeCount = Math.max(0, likeCount - 1);
+        setLiked(false);
+        localStorage.setItem('liked', 'false');
+        setLikeCount(newLikeCount);
+      }
+    }
+
+    setDizlace(newDizCount);
+    handleReaction(newLikeCount, newDizCount);
   };
 
 
@@ -133,7 +245,7 @@ export default function FullStackPortfolio() {
         transition={{ delay: 1, duration: 1 }}
       >
         <button
-          onClick={() => setShowProjects(true)}
+          onClick={() => setvid(false)}
           className="px-8 py-4 rounded-xl text-white font-bold border border-white hover:bg-white hover:text-black transition-all hover:scale-105 shadow-lg"
         >
           Portfolio
@@ -154,7 +266,7 @@ export default function FullStackPortfolio() {
 
 
 
-{showProjects && (
+{!vid && (
   <motion.div
     className=" w-[100%] flex justify-center"
     initial={{ opacity: 0, y: 50 }}
@@ -222,54 +334,54 @@ export default function FullStackPortfolio() {
   </p>
 
 
-
 <div className="flex justify-center gap-6 p-8">
   {/* Кнопка лайка */}
   <motion.button
-    onClick={() => handleReaction("like")}
+    onClick={handleLike}
     className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
-    animate={{ scale: userReaction === "like" ? 1.2 : 1 }}
+    animate={{ scale: liked ? 1.2 : 1 }}
     transition={{ type: "spring", stiffness: 300, damping: 15 }}
   >
     <img
       src="/img/fef.png"
       className="w-12 h-12 mb-2"
       style={{
-        filter:
-          userReaction === "like"
-            ? "brightness(0) saturate(100%) invert(63%) sepia(52%) saturate(482%) hue-rotate(74deg) brightness(95%) contrast(92%)"
-            : "none"
+        filter: liked
+          ? "brightness(0) saturate(100%) invert(63%) sepia(52%) saturate(482%) hue-rotate(74deg) brightness(95%) contrast(92%)"
+          : "none"
       }}
     />
-    <span className="text-xl font-semibold text-white">{likes}</span>
+    <span className="text-xl font-semibold text-white">{Number(likeCount) || 0}</span>
   </motion.button>
 
-  {/* Кнопка дизлайка */}
+  
   <motion.button
-    onClick={() => handleReaction("dislike")}
+    onClick={handleDislike}
     className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300"
-    animate={{ scale: userReaction === "dislike" ? 1.2 : 1 }}
+    animate={{ scale: disliked ? 1.2 : 1 }}
     transition={{ type: "spring", stiffness: 300, damping: 15 }}
   >
     <img
       src="/img/like 1 (1).png"
       className="w-12 h-12 mb-2"
       style={{
-        filter:
-          userReaction === "dislike"
-            ? "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(600%) hue-rotate(350deg) brightness(95%) contrast(105%)"
-            : "none"
+        filter: disliked
+          ? "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(600%) hue-rotate(350deg) brightness(95%) contrast(105%)"
+          : "none"
       }}
     />
-    <span className="text-xl font-semibold text-white">{dislikes}</span>
+    <span className="text-xl font-semibold text-white">{Number(dizlace) || 0}</span>
   </motion.button>
 </div>
 
-{ !coments ? null:(<div>
-  <form onSubmit={handleReaction}>
+
+{ !vidcoment && (<div>
+  <form onSubmit={handleReact}>
  <input
   type="text"
+  value={coment}
   placeholder="Почему??"
+  onChange={(e) => setcoment(e.target.value)}
   className="
     w-full max-w-md
     px-4 py-3
@@ -285,7 +397,7 @@ export default function FullStackPortfolio() {
     hover:shadow-md
   "
 />
-  <button type='submit'>Отправить</button>
+  <button type='submit' >Отправить</button>
   </form>
  
 
