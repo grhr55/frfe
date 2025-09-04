@@ -51,7 +51,7 @@ export default function FullStackPortfolio() {
 
     setLikeCount(Number(item.likeCount) || 0);
     setDizlace(Number(item.dizlace) || 0);
-    setcoment(item.coment || "");
+   setcoment(item.comments?.[item.comments.length - 1]?.text || "")
     setViews(Number(item.views) || 0);
 
   } catch (error) {
@@ -66,17 +66,18 @@ export default function FullStackPortfolio() {
 
   // Проверка просмотров
   const hasViewed = localStorage.getItem("viewed") === "true";
-  if (!hasViewed) {
-    setViews(prev => prev + 1);
-    localStorage.setItem("viewed", "true");
-  }
+if (!hasViewed) {
+  setViews(prev => prev + 1);
+  localStorage.setItem("viewed", "true");
+}
 
-  // Проверяем deviceId
-  let deviceId = localStorage.getItem('deviceId');
-  if (!deviceId) {
-    deviceId = crypto.randomUUID();
-    localStorage.setItem('deviceId', deviceId);
-  }
+
+let deviceId = localStorage.getItem('deviceId');
+if (!deviceId) {
+  deviceId = crypto.randomUUID();
+  localStorage.setItem('deviceId', deviceId);
+}
+
 };
 useEffect( () => {
   fetchProderucts()
@@ -95,7 +96,7 @@ useEffect( () => {
       const res = await fetch("https://rgree.onrender.com/likos/reaction", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ likeCount,dizlace, coment, views })
+        body: JSON.stringify({ deviceId, likeCount, dizlace, views })
       });
      
       
@@ -114,7 +115,7 @@ useEffect( () => {
       const res = await fetch("https://rgree.onrender.com/likos/reaction", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ coment })
+        body: JSON.stringify({ deviceId, coment })
       });
        setvidcoment(true)
        setcoment('')
