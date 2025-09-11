@@ -31,7 +31,7 @@ export default function FullStackPortfolio() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:2000/portfol/porf");
+      const res = await fetch("https://fourfeef.onrender.com/portfol/porf");
       if (!res.ok) throw new Error("Ошибка загрузки данных портфеля");
       const data = await res.json();
       setProducts(data);
@@ -62,7 +62,7 @@ export default function FullStackPortfolio() {
 const fetchReactions = async (productId) => {
   try {
     if (!productId) return;
-    const res = await fetch(`http://localhost:2000/likos/lice/${productId}`);
+    const res = await fetch(`https://fourfeef.onrender.com/likos/lice/${productId}`);
     if (!res.ok) throw new Error("Ошибка загрузки реакций");
     const arr = await res.json();
   
@@ -94,7 +94,7 @@ const fetchReactions = async (productId) => {
  
   const sendDeviceReaction = async ({ productId, deviceLike, deviceDislike,  views = 0 }) => {
     try {
-      await fetch("http://localhost:2000/likos/reaction", { 
+      await fetch("https://fourfeef.onrender.com/likos/reaction", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ deviceId, productId, likeCount: deviceLike, dizlace: deviceDislike,  views })
@@ -230,7 +230,7 @@ const fetchReactions = async (productId) => {
                   <h3 className="text-xl sm:text-2xl font-bold mb-3 text-center text-white drop-shadow-md">{product.name}</h3>
 
                   <div className="w-full h-36 sm:h-40 md:h-48 mb-3 overflow-hidden rounded-xl border border-white/30 shadow-inner">
-                    <Image src={`http://localhost:2000/portfol${product.img}`} alt={product.name} width={400} height={300} className="w-full h-full object-cover" />
+                    <Image src={`https://fourfeef.onrender.com/portfol${product.img}`} alt={product.name} width={400} height={300} className="w-full h-full object-cover" />
                   </div>
 
                   <div className="flex flex-col gap-2 mb-3 flex-grow justify-center">
