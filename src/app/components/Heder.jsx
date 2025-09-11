@@ -184,17 +184,7 @@ const fetchReactions = async (productId) => {
   };
 
   
-  useEffect(() => {
-    controls.start({
-      background: [
-        "linear-gradient(120deg, #f59e0b, #3b82f6)",
-        "linear-gradient(120deg, #9333ea, #10b981)",
-        "linear-gradient(120deg, #f43f5e, #fbbf24)",
-        "linear-gradient(120deg, #3b82f6, #f59e0b)"
-      ],
-      transition: { duration: 15, ease: "linear", repeat: Infinity, repeatType: "loop" }
-    });
-  }, [controls]);
+
 
   const skills = [ "HTML", "CSS", "JavaScript", "React", "Node.js", "Next.js", "TailwindCSS", "MongoDB", "Telegram Web App", "Python", "GitHub", "Figma" ];
 
