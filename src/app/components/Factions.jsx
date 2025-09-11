@@ -16,13 +16,16 @@ export default function PricingSection({setvid}) {
      transition={{ duration: 2 }}
       >
         <button
-          onClick={() => {
+onClick={() => {
   setvid(false);
-  const section = document.getElementById("portfol");
-  if (section) {
-    section.scrollIntoView({ behavior: "smooth" });
-  }
+  setTimeout(() => {
+    const section = document.getElementById("portfol");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  }, 100); 
 }}
+
 
           className="px-8 py-4 rounded-xl text-white font-bold border border-white hover:bg-white hover:text-black transition-all hover:scale-105 shadow-lg"
         >
