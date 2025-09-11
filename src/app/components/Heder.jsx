@@ -283,41 +283,58 @@ const fetchReactions = async (productId) => {
   </p>
 
   {/* Лайк/Дизлайк */}
-  <div className="flex justify-center gap-5 p-2">
-    <motion.button
-      onClick={() => handleLike(product._id)}
-      className="flex flex-col items-center p-3 bg-white/10 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
-      animate={{ scale: r.liked ? 1.1 : 1 }}
-    >
-      <img
-        src="/img/fef.png"
-        className="w-7 h-7 mb-1"
-        style={{
-          filter: r.liked
-            ? "brightness(0) saturate(100%) invert(63%) sepia(52%) saturate(482%) hue-rotate(74deg) brightness(95%) contrast(92%)"
-            : "none",
-        }}
-      />
-      <span className="text-sm sm:text-base font-medium text-white">{r.likeCount || 0}</span>
-    </motion.button>
+<div className="flex justify-center gap-6 p-4">
+  {/* ЛАЙК */}
+  <motion.button
+    onClick={() => handleLike(product._id)}
+    className={`
+      flex flex-col items-center justify-center p-3 rounded-2xl
+      bg-gradient-to-tr from-green-400 to-green-600
+      shadow-lg hover:shadow-2xl transition-all duration-300
+      transform hover:scale-110 active:scale-95
+    `}
+    animate={{ scale: r.liked ? 1.15 : 1 }}
+  >
+    <img
+      src="/img/fef.png"
+      className="w-7 h-7 mb-1"
+      style={{
+        filter: r.liked
+          ? "brightness(0) saturate(100%) invert(63%) sepia(52%) saturate(482%) hue-rotate(74deg) brightness(95%) contrast(92%)"
+          : "none",
+      }}
+    />
+    <span className="text-white font-semibold text-sm sm:text-base drop-shadow">
+      {r.likeCount || 0}
+    </span>
+  </motion.button>
 
-    <motion.button
-      onClick={() => handleDislike(product._id)}
-      className="flex flex-col items-center p-3 bg-white/10 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
-      animate={{ scale: r.disliked ? 1.1 : 1 }}
-    >
-      <img
-        src="/img/like 1 (1).png"
-        className="w-7 h-7 mb-1"
-        style={{
-          filter: r.disliked
-            ? "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(600%) hue-rotate(350deg) brightness(95%) contrast(105%)"
-            : "none",
-        }}
-      />
-      <span className="text-sm sm:text-base font-medium text-white">{r.dizlace || 0}</span>
-    </motion.button>
-  </div>
+  {/* ДИЗЛАЙК */}
+  <motion.button
+    onClick={() => handleDislike(product._id)}
+    className={`
+      flex flex-col items-center justify-center p-3 rounded-2xl
+      bg-gradient-to-tr from-red-400 to-red-600
+      shadow-lg hover:shadow-2xl transition-all duration-300
+      transform hover:scale-110 active:scale-95
+    `}
+    animate={{ scale: r.disliked ? 1.15 : 1 }}
+  >
+    <img
+      src="/img/like 1 (1).png"
+      className="w-7 h-7 mb-1"
+      style={{
+        filter: r.disliked
+          ? "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(600%) hue-rotate(350deg) brightness(95%) contrast(105%)"
+          : "none",
+      }}
+    />
+    <span className="text-white font-semibold text-sm sm:text-base drop-shadow">
+      {r.dizlace || 0}
+    </span>
+  </motion.button>
+</div>
+
 </motion.div>
 
               );
