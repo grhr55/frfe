@@ -233,8 +233,8 @@ const fetchReactions = async (productId) => {
     rounded-3xl shadow-2xl
     transition-transform duration-300
     hover:scale-105 hover:shadow-3xl
-    cursor-pointer flex flex-col w-full
-    sm:w-[280px] md:w-[320px] lg:w-[360px] xl:w-[380px] 2xl:w-[420px]
+    cursor-pointer flex flex-col 
+    sm:w-[280px] md:w-[330px] lg:w-[380px] xl:w-[380px] 2xl:w-[420px] w-[280px]
     min-h-[480px] sm:min-h-[500px] md:min-h-[520px] lg:min-h-[540px] 
     p-6
     backdrop-blur-md
