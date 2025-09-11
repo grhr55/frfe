@@ -230,7 +230,13 @@ const fetchReactions = async (productId) => {
                   <h3 className="text-xl sm:text-2xl font-bold mb-3 text-center text-white drop-shadow-md">{product.name}</h3>
 
                   <div className="w-full h-36 sm:h-40 md:h-48 mb-3 overflow-hidden rounded-xl border border-white/30 shadow-inner">
-                    <Image src={`https://fourfeef.onrender.com/portfol${product.img}`} alt={product.name} width={400} height={300} className="w-full h-full object-cover" />
+                    <Image 
+  src={`https://fourfeef.onrender.com/portfol${product.img}`} 
+  alt={product.name} 
+  width={400} 
+  height={300} 
+  className="w-full h-full object-cover" 
+/>
                   </div>
 
                   <div className="flex flex-col gap-2 mb-3 flex-grow justify-center">
