@@ -243,10 +243,12 @@ const fetchReactions = async (productId) => {
   animate={{ opacity: 1, y: 0 }}
   transition={{ delay: index * 0.12 }}
 >
-  {/* Название продукта */}
-  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 text-center text-white drop-shadow-lg">
+  <section id='portfol'>
+     <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 text-center text-white drop-shadow-lg">
     {product.name}
   </h3>
+  </section>
+ 
 
   {/* Изображение */}
   <div className="w-full h-40 sm:h-44 md:h-48 lg:h-52 mb-4 overflow-hidden rounded-2xl border border-white/30 shadow-inner">

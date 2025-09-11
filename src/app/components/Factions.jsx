@@ -16,7 +16,14 @@ export default function PricingSection({setvid}) {
      transition={{ duration: 2 }}
       >
         <button
-          onClick={() => setvid(false)}
+          onClick={() => {
+  setvid(false);
+  const section = document.getElementById("portfol");
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  }
+}}
+
           className="px-8 py-4 rounded-xl text-white font-bold border border-white hover:bg-white hover:text-black transition-all hover:scale-105 shadow-lg"
         >
           Portfolio
