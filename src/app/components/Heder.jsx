@@ -251,7 +251,7 @@ const fetchReactions = async (productId) => {
   {/* Изображение */}
   <div className="w-full h-40 sm:h-44 md:h-48 lg:h-52 mb-4 overflow-hidden rounded-2xl border border-white/30 shadow-inner">
     <Image
-      src={`https://fourfeef.onrender.com/portfol${product.img}`}
+      src={`https://fourfeef.onrender.com/portfol/${product.img}`}
       alt={product.name}
       width={400}
       height={300}

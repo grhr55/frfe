@@ -1,6 +1,6 @@
 
 
-export default function Tovar({ products , handleLike, setReactions , sendDeviceReaction, fetchReactions ,handleDislike ,reactions}) {
+export default function Tovar({ products ,  setReactions , sendDeviceReaction, fetchReactions , reactions}) {
 
 
 
