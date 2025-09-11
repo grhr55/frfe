@@ -293,7 +293,9 @@ const fetchReactions = async (productId) => {
       shadow-lg
       transition-all duration-300
       transform hover:scale-110 active:scale-95
-      ${r.liked ? "bg-green-500 text-white shadow-2xl" : "bg-green-400 text-white"}
+      ${r.liked 
+        ? "bg-gradient-to-tr from-green-400 to-green-600 shadow-2xl scale-110" 
+        : "bg-green-300 hover:bg-green-400"}
     `}
     animate={{ scale: r.liked ? 1.15 : 1 }}
   >
@@ -302,7 +304,7 @@ const fetchReactions = async (productId) => {
       className="w-7 h-7"
       style={{
         filter: r.liked
-          ? "brightness(0) saturate(100%) invert(63%) sepia(52%) saturate(482%) hue-rotate(74deg) brightness(95%) contrast(92%)"
+          ? "brightness(1.2) saturate(150%)"
           : "none",
       }}
     />
@@ -320,7 +322,9 @@ const fetchReactions = async (productId) => {
       shadow-lg
       transition-all duration-300
       transform hover:scale-110 active:scale-95
-      ${r.disliked ? "bg-red-500 text-white shadow-2xl" : "bg-red-400 text-white"}
+      ${r.disliked
+        ? "bg-gradient-to-tr from-red-400 to-red-600 shadow-2xl scale-110"
+        : "bg-red-300 hover:bg-red-400"}
     `}
     animate={{ scale: r.disliked ? 1.15 : 1 }}
   >
@@ -329,7 +333,7 @@ const fetchReactions = async (productId) => {
       className="w-7 h-7"
       style={{
         filter: r.disliked
-          ? "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(600%) hue-rotate(350deg) brightness(95%) contrast(105%)"
+          ? "brightness(1.2) saturate(150%)"
           : "none",
       }}
     />
@@ -338,6 +342,7 @@ const fetchReactions = async (productId) => {
     </span>
   </motion.button>
 </div>
+
 
 
 </motion.div>
