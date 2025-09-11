@@ -226,38 +226,100 @@ const fetchReactions = async (productId) => {
               const r = reactions[product._id] || { likeCount: 0, dizlace: 0, liked: false, disliked: false, coment: "", views: 0 };
 
               return (
-                <motion.div key={product._id} style={{ background: g[index % g.length] }} className="rounded-3xl shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col w-full sm:w-[300px] md:w-[340px] lg:w-[360px] max-w-[380px] min-h-[480px] p-6" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.12 }}>
-                  <h3 className="text-xl sm:text-2xl font-bold mb-3 text-center text-white drop-shadow-md">{product.name}</h3>
+                <motion.div
+  key={product._id}
+  style={{ background: g[index % g.length] }}
+  className="
+    rounded-3xl shadow-2xl
+    transition-transform duration-300
+    hover:scale-105 hover:shadow-3xl
+    cursor-pointer flex flex-col w-full
+    sm:w-[280px] md:w-[320px] lg:w-[360px] xl:w-[380px] 2xl:w-[420px]
+    min-h-[480px] sm:min-h-[500px] md:min-h-[520px] lg:min-h-[540px] 
+    p-6
+    backdrop-blur-md
+  "
+  initial={{ opacity: 0, y: 50 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: index * 0.12 }}
+>
+  {/* Название продукта */}
+  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 text-center text-white drop-shadow-lg">
+    {product.name}
+  </h3>
 
-                  <div className="w-full h-36 sm:h-40 md:h-48 mb-3 overflow-hidden rounded-xl border border-white/30 shadow-inner">
-                    <Image 
-  src={`https://fourfeef.onrender.com/portfol${product.img}`} 
-  alt={product.name} 
-  width={400} 
-  height={300} 
-  className="w-full h-full object-cover" 
-/>
-                  </div>
+  {/* Изображение */}
+  <div className="w-full h-40 sm:h-44 md:h-48 lg:h-52 mb-4 overflow-hidden rounded-2xl border border-white/30 shadow-inner">
+    <Image
+      src={`https://fourfeef.onrender.com/portfol${product.img}`}
+      alt={product.name}
+      width={400}
+      height={300}
+      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+    />
+  </div>
 
-                  <div className="flex flex-col gap-2 mb-3 flex-grow justify-center">
-                    {product.orig && <a href={product.orig} target="_blank" rel="noreferrer"><button className="w-full px-4 py-2 rounded-xl bg-white text-black font-semibold">Ready layout</button></a>}
-                    {product.figma && <a href={product.figma} target="_blank" rel="noreferrer"><button className="w-full px-4 py-2 rounded-xl bg-black/70 text-white font-semibold">Design Layout</button></a>}
-                  </div>
+  {/* Кнопки */}
+  <div className="flex flex-col gap-3 mb-4 flex-grow justify-center">
+    {product.orig && (
+      <a href={product.orig} target="_blank" rel="noreferrer">
+        <button className="w-full px-4 py-3 rounded-xl bg-white text-black font-semibold shadow-md hover:shadow-xl transition-shadow duration-300">
+          Ready Layout
+        </button>
+      </a>
+    )}
+    {product.figma && (
+      <a href={product.figma} target="_blank" rel="noreferrer">
+        <button className="w-full px-4 py-3 rounded-xl bg-black/70 text-white font-semibold shadow-md hover:shadow-xl transition-shadow duration-300">
+          Design Layout
+        </button>
+      </a>
+    )}
+  </div>
 
-                  <p className="text-white text-xs sm:text-sm md:text-base text-center leading-relaxed drop-shadow">{product.opis}</p>
+  {/* Описание */}
+  <p className="text-white text-sm sm:text-base md:text-lg text-center leading-relaxed drop-shadow-lg mb-4">
+    {product.opis}
+  </p>
 
-                  <div className="flex justify-center gap-3 p-4">
-                    <motion.button onClick={() => handleLike(product._id)} className="flex flex-col items-center p-2 bg-white/10 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300" animate={{ scale: r.liked ? 1.05 : 1 }}>
-                      <img src="/img/fef.png" className="w-6 h-6 mb-1" style={{ filter: r.liked ? "brightness(0) saturate(100%) invert(63%) sepia(52%) saturate(482%) hue-rotate(74deg) brightness(95%) contrast(92%)" : "none" }} />
-                      <span className="text-sm font-medium text-white">{r.likeCount || 0}</span>
-                    </motion.button>
+  {/* Лайк/Дизлайк */}
+  <div className="flex justify-center gap-5 p-2">
+    <motion.button
+      onClick={() => handleLike(product._id)}
+      className="flex flex-col items-center p-3 bg-white/10 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+      animate={{ scale: r.liked ? 1.1 : 1 }}
+    >
+      <img
+        src="/img/fef.png"
+        className="w-7 h-7 mb-1"
+        style={{
+          filter: r.liked
+            ? "brightness(0) saturate(100%) invert(63%) sepia(52%) saturate(482%) hue-rotate(74deg) brightness(95%) contrast(92%)"
+            : "none",
+        }}
+      />
+      <span className="text-sm sm:text-base font-medium text-white">{r.likeCount || 0}</span>
+    </motion.button>
 
-                    <motion.button onClick={() => handleDislike(product._id)} className="flex flex-col items-center p-2 bg-white/10 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300" animate={{ scale: r.disliked ? 1.05 : 1 }}>
-                      <img src="/img/like 1 (1).png" className="w-6 h-6 mb-1" style={{ filter: r.disliked ? "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(600%) hue-rotate(350deg) brightness(95%) contrast(105%)" : "none" }} />
-                      <span className="text-sm font-medium text-white">{r.dizlace || 0}</span>
-                    </motion.button>
-                  </div>
-                </motion.div>
+    <motion.button
+      onClick={() => handleDislike(product._id)}
+      className="flex flex-col items-center p-3 bg-white/10 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+      animate={{ scale: r.disliked ? 1.1 : 1 }}
+    >
+      <img
+        src="/img/like 1 (1).png"
+        className="w-7 h-7 mb-1"
+        style={{
+          filter: r.disliked
+            ? "brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(600%) hue-rotate(350deg) brightness(95%) contrast(105%)"
+            : "none",
+        }}
+      />
+      <span className="text-sm sm:text-base font-medium text-white">{r.dizlace || 0}</span>
+    </motion.button>
+  </div>
+</motion.div>
+
               );
             })}
           </div>
