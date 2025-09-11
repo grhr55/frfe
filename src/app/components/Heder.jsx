@@ -338,7 +338,7 @@ const fetchReactions = async (productId) => {
       }}
     />
     <span className="text-white font-semibold text-sm sm:text-base drop-shadow">
-      {r.dislikeCount || 0}
+      
     </span>
   </motion.button>
 </div>
