@@ -216,7 +216,7 @@ const fetchReactions = async (productId) => {
       <Factions setvid={setVid} />
 
       {!vid && (
-        <motion.div className="w-[100%] flex justify-center" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+        <motion.div className="w-[90%] flex justify-center" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <div className="flex flex-wrap justify-center gap-8 max-w-[100%]">
             {products.map((product, index) => {
               const g = ["linear-gradient(120deg, #f59e0b, #3b82f6)",
