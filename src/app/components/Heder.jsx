@@ -288,11 +288,12 @@ const fetchReactions = async (productId) => {
   <motion.button
     onClick={() => handleLike(product._id)}
     className={`
-      flex flex-row items-center justify-center gap-2
+      flex items-center justify-center gap-2
       p-3 rounded-2xl
-      bg-gradient-to-tr from-green-400 to-green-600
-      shadow-lg hover:shadow-2xl transition-all duration-300
+      shadow-lg
+      transition-all duration-300
       transform hover:scale-110 active:scale-95
+      ${r.liked ? "bg-green-500 text-white shadow-2xl" : "bg-green-400 text-white"}
     `}
     animate={{ scale: r.liked ? 1.15 : 1 }}
   >
@@ -314,11 +315,12 @@ const fetchReactions = async (productId) => {
   <motion.button
     onClick={() => handleDislike(product._id)}
     className={`
-      flex flex-row items-center justify-center gap-2
+      flex items-center justify-center gap-2
       p-3 rounded-2xl
-      bg-gradient-to-tr from-red-400 to-red-600
-      shadow-lg hover:shadow-2xl transition-all duration-300
+      shadow-lg
+      transition-all duration-300
       transform hover:scale-110 active:scale-95
+      ${r.disliked ? "bg-red-500 text-white shadow-2xl" : "bg-red-400 text-white"}
     `}
     animate={{ scale: r.disliked ? 1.15 : 1 }}
   >
@@ -332,10 +334,11 @@ const fetchReactions = async (productId) => {
       }}
     />
     <span className="text-white font-semibold text-sm sm:text-base drop-shadow">
-      
+      {r.dislikeCount || 0}
     </span>
   </motion.button>
 </div>
+
 
 </motion.div>
 
