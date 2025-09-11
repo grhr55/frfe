@@ -199,7 +199,7 @@ const fetchReactions = async (productId) => {
   const skills = [ "HTML", "CSS", "JavaScript", "React", "Node.js", "Next.js", "TailwindCSS", "MongoDB", "Telegram Web App", "Python", "GitHub", "Figma" ];
 
   return (
-    <motion.div className="w-screen min-h-screen flex flex-col items-center justify-center text-center text-white p-4 overflow-hidden relative" animate={controls}>
+    <motion.div className=" flex flex-col items-center justify-center text-center text-white p-4 overflow-hidden relative" animate={controls}>
       <motion.div initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="mb-12">
         <h1 className="text-[clamp(33px,9vw,70px)] font-extrabold mb-4 drop-shadow-lg leading-tight">Hi, I'm a Full-Stack Developer + SEO</h1>
         <p className="text-xl md:text-2xl max-w-3xl mx-auto drop-shadow-md">I create modern, dynamic websites using the latest technologies.</p>
@@ -216,7 +216,7 @@ const fetchReactions = async (productId) => {
       <Factions setvid={setVid} />
 
       {!vid && (
-        <motion.div className="w-[] flex justify-center" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+        <motion.div className=" flex justify-center" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <div className="flex flex-wrap justify-center gap-8 max-w-[100%]">
             {products.map((product, index) => {
               const g = ["linear-gradient(120deg, #f59e0b, #3b82f6)",
