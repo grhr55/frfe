@@ -23,7 +23,7 @@ onClick={() => {
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
-  }, 200); 
+  }, 300); 
 }}
 
 
