@@ -184,31 +184,17 @@ const fetchReactions = async (productId) => {
   };
 
   
-useEffect(() => {
-  controls.start({
-    background: [
-      "linear-gradient(0deg, #f59e0b, #3b82f6)",
-      "linear-gradient(30deg, #9333ea, #10b981)",
-      "linear-gradient(60deg, #f43f5e, #fbbf24)",
-      "linear-gradient(90deg, #3b82f6, #f59e0b)",
-      "linear-gradient(120deg, #f59e0b, #9333ea)",
-      "linear-gradient(150deg, #10b981, #f43f5e)",
-      "linear-gradient(180deg, #fbbf24, #3b82f6)",
-      "linear-gradient(210deg, #9333ea, #f59e0b)",
-      "linear-gradient(240deg, #10b981, #f43f5e)",
-      "linear-gradient(270deg, #3b82f6, #fbbf24)",
-      "linear-gradient(300deg, #f59e0b, #9333ea)",
-      "linear-gradient(330deg, #10b981, #f43f5e)",
-      "linear-gradient(360deg, #f43f5e, #3b82f6)"
-    ],
-    transition: {
-      duration: 30,
-      ease: "linear",
-      repeat: Infinity
-    }
-  });
-}, [controls]);
-
+  useEffect(() => {
+    controls.start({
+      background: [
+        "linear-gradient(120deg, #f59e0b, #3b82f6)",
+        "linear-gradient(120deg, #9333ea, #10b981)",
+        "linear-gradient(120deg, #f43f5e, #fbbf24)",
+        "linear-gradient(120deg, #3b82f6, #f59e0b)"
+      ],
+      transition: { duration: 15, ease: "linear", repeat: Infinity, repeatType: "loop" }
+    });
+  }, [controls]);
 
   const skills = [ "HTML", "CSS", "JavaScript", "React", "Node.js", "Next.js", "TailwindCSS", "MongoDB", "Telegram Web App", "Python", "GitHub", "Figma" ];
 
