@@ -32,11 +32,12 @@ onClick={() => {
           Portfolio
         </button>
 
-        <a href="https://t.me/Rocetk66">
-          <button className="px-8 py-4 rounded-xl text-white font-bold border border-white hover:bg-white hover:text-black transition-all hover:scale-105 shadow-lg">
-            Contacts
-          </button>
+       
+        <button className="px-8 py-4 rounded-xl text-white font-bold border border-white hover:bg-white hover:text-black transition-all hover:scale-105 shadow-lg">
+             <a href="https://t.me/Rocetk66">
+          Contacts
         </a>
+          </button>
 
       <Link href="/praus">
         <button className="px-8 py-4 rounded-xl text-white font-bold border border-white hover:bg-white hover:text-black transition-transform hover:scale-105 shadow-lg">
