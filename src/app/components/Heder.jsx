@@ -183,6 +183,21 @@ const fetchReactions = async (productId) => {
     await fetchReactions(productId);
   };
 
+
+    const extraImages = [
+    '/img/Без названия (1).png',
+    '/img/nextjs-icon-dark-background (1).png',
+    '/img/nodejs-inner-removebg-preview (1).png',
+    '/img/images (1).png',
+    '/img/images (2) (1).png',
+    '/img/pythonlogo (1).png',
+    '/img/images (4) (1).png'
+  ];
+
+ const xOffsets = [-100, 100, -120, 500, 480];
+  const yOffsets = [-100, -160, 100, 40, -60, 100, -150];
+
+
   
   useEffect(() => {
     controls.start({
@@ -199,9 +214,80 @@ const fetchReactions = async (productId) => {
   const skills = [ "HTML", "CSS", "JavaScript", "React", "Node.js", "Next.js", "TailwindCSS", "MongoDB", "Telegram Web App", "Python", "GitHub", "Figma" ];
 
   return (
+    
     <motion.div className="  min-h-screen flex flex-col items-center justify-center text-center text-white p-6 overflow-hidden relative" animate={controls}>
-      <motion.div initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-12">
-        <h1 className="text-[clamp(33px,9vw,70px)] font-extrabold mb-4 drop-shadow-lg leading-tight">Hi, I'm a Full-Stack Developer + SEO</h1>
+
+  <motion.a
+      href="https://t.me/Rocetk66"
+      className="relative flex items-center w-full max-w-md  rounded-2xl shadow-lg p-4 overflow-visible cursor-pointer"
+      whileHover="hover"
+      initial={{ opacity: 0, y: -300 }} // старт: прозрачная и выше
+  animate={{ opacity: 1, y: 0 }}   // финал: полностью видимая, на месте
+  transition={{ duration: 1, ease: "easeOut" }} 
+  
+
+      
+    >
+    
+      <div className="relative w-20 h-20 flex-shrink-0 z-10">
+        <Image
+          src="/img/efef.jpg"
+          width={80}
+          height={80}
+          alt="User Avatar"
+          className="rounded-full object-cover w-full h-full"
+        />
+        <motion.span
+          className="absolute bottom-0 right-0 w-5 h-5 bg-emerald-500 border-2 border-white rounded-full shadow-md"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [1, 1, 1],
+          }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+
+    
+      <div className="ml-4 flex flex-col text-left z-10 drop-shadow-lg ">
+        <h1 className="font-bold text-[clamp(6px,6vw,25px)] drop-shadow-lg">IT Fullstack Web</h1>
+        <p className="text-sm  text-[clamp(6px,6vw,25px)] mt-1 drop-shadow-lg">💻 Разработчик Сайтов</p>
+      </div>
+
+{extraImages.map((src, index) => (
+  <motion.div
+    key={index}
+    className="absolute w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-lg"
+    initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
+    variants={{
+      hover: {
+        x: xOffsets[index],
+        y: yOffsets[index],
+        scale: 1,
+        opacity: 1,
+      },
+    }}
+    transition={{ duration: 0.5, delay: 0.1 * index, ease: "easeOut" }}
+  >
+    <Image
+      src={src}
+      width={48}
+      height={48}
+      alt={`Extra ${index}`}
+      className="object-cover w-full h-full"
+    />
+  </motion.div>
+))}
+    </motion.a>
+
+      
+      
+      <motion.div initial={{ opacity: 0, y: -100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-12">
+        <h1 className="text-[clamp(33px,9vw,70px)] font-extrabold mb-4 mt-[60px] drop-shadow-lg leading-tight">Hi I'm a Full-Stack Developer + SEO</h1>
         <p className="text-xl md:text-2xl max-w-3xl mx-auto drop-shadow-md">I create modern, dynamic websites using the latest technologies.</p>
       </motion.div>
 
@@ -250,100 +336,90 @@ const fetchReactions = async (productId) => {
   </section>
  
 
-  {/* Изображение */}
-  <div className="w-full h-40 sm:h-44 md:h-48 lg:h-52 mb-4 overflow-hidden rounded-2xl border border-white/30 shadow-inner">
-    <Image
-      src={`https://fourfeef.onrender.com/portfol/${product.img}`}
-      alt={product.name}
-      width={400}
-      height={300}
-      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-    />
+ <div className="w-full h-44 sm:h-52 md:h-56 lg:h-60 mb-4 overflow-hidden rounded-2xl border border-white/30 shadow-xl relative">
+  <Image
+    src={`https://fourfeef.onrender.com/portfol${product.img}`}
+    alt={product.name || "Preview"}
+    width={400}
+    height={300}
+    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+  />
+
+ <div >
+   <div className="absolute top-2 left-2 px-3 py-1 text-xs sm:text-sm bg-black/70 text-white rounded-full shadow-md">
+    🚀 Лейдинг
   </div>
 
-  {/* Кнопки */}
-  <div className="flex flex-col gap-3 mb-4 flex-grow justify-center">
-    {product.orig && (
-      <a href={product.orig} target="_blank" rel="noreferrer">
-        <button className="w-full px-4 py-3 rounded-xl bg-white text-black font-semibold shadow-md hover:shadow-xl transition-shadow duration-300">
-          Ready Layout
-        </button>
-      </a>
-    )}
-    {product.figma && (
-      <a href={product.figma} target="_blank" rel="noreferrer">
-        <button className="w-full px-4 py-3 rounded-xl bg-black/70 text-white font-semibold shadow-md hover:shadow-xl transition-shadow duration-300">
-          Design Layout
-        </button>
-      </a>
-    )}
-  </div>
+ </div>
+</div>
 
-  {/* Описание */}
-  <p className="text-white text-sm sm:text-base md:text-lg text-center leading-relaxed drop-shadow-lg mb-4">
-    {product.opis}
-  </p>
 
-  {/* Лайк/Дизлайк */}
+<div className="flex flex-col gap-3 mb-4 flex-grow justify-center">
+  {product.orig && (
+    <a href={product.orig} target="_blank" rel="noreferrer">
+      <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-r from-blue-400 to-indigo-500 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+        ⚡ Ready Layout
+      </button>
+    </a>
+  )}
+  {product.figma && (
+    <a href={product.figma} target="_blank" rel="noreferrer">
+      <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-r from-pink-400 to-purple-500 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+        🎨 Design Layout
+      </button>
+    </a>
+  )}
+</div>
+
+
+<div className="space-y-3 mb-6 text-[clamp(14px,2vw,20px)] text-left bg-black/5 p-6 rounded-2xl shadow-lg">
+  <h1>⚙️ <span className="font-semibold">Сложность:</span> Средний </h1>
+  <h1>📱 <span className="font-semibold">Адаптация:</span>  1920px до 350px </h1>
+  <h1>🔎 <span className="font-semibold">SEO:</span> Встроенная </h1>
+  <h1>⚡ <span className="font-semibold">Производительность:</span> A</h1>
+  <h1>🛠️ <span className="font-semibold">Технологии:</span> React/Next.js</h1>
+ 
+</div>
+
+
 <div className="flex justify-center gap-6 p-4">
-  {/* ЛАЙК */}
+ 
   <motion.button
     onClick={() => handleLike(product._id)}
     className={`
       flex items-center justify-center gap-2
-      p-3 rounded-2xl
-      shadow-lg
-      transition-all duration-300
-      transform hover:scale-110 active:scale-95
-      ${r.liked 
-        ? "bg-gradient-to-tr from-green-400 to-green-600 shadow-2xl scale-110" 
-        : "bg-green-300 hover:bg-green-400"}
+      px-5 py-3 rounded-2xl shadow-lg
+      text-white font-bold text-base
+      transition-all duration-300 transform
+      hover:scale-110 active:scale-95
+      ${r.liked
+        ? "bg-gradient-to-tr from-green-400 to-green-600 shadow-2xl scale-110"
+        : "bg-green-400 hover:bg-green-500"}
     `}
-    animate={{ scale: r.liked ? 1.15 : 1 }}
+    animate={{ scale: r.liked ? 1.2 : 1 }}
   >
-    <img
-      src="/img/fef.png"
-      className="w-7 h-7"
-      style={{
-        filter: r.liked
-          ? "brightness(1.2) saturate(150%)"
-          : "none",
-      }}
-    />
-    <span className="text-white font-semibold text-sm sm:text-base drop-shadow">
-      {r.likeCount || 0}
-    </span>
+    👍 {r.likeCount || 0}
   </motion.button>
 
-  {/* ДИЗЛАЙК */}
+  
   <motion.button
     onClick={() => handleDislike(product._id)}
     className={`
       flex items-center justify-center gap-2
-      p-3 rounded-2xl
-      shadow-lg
-      transition-all duration-300
-      transform hover:scale-110 active:scale-95
+      px-5 py-3 rounded-2xl shadow-lg
+      text-white font-bold text-base
+      transition-all duration-300 transform
+      hover:scale-110 active:scale-95
       ${r.disliked
         ? "bg-gradient-to-tr from-red-400 to-red-600 shadow-2xl scale-110"
-        : "bg-red-300 hover:bg-red-400"}
+        : "bg-red-400 hover:bg-red-500"}
     `}
-    animate={{ scale: r.disliked ? 1.15 : 1 }}
+    animate={{ scale: r.disliked ? 1.2 : 1 }}
   >
-    <img
-      src="/img/like 1 (1).png"
-      className="w-7 h-7"
-      style={{
-        filter: r.disliked
-          ? "brightness(1.2) saturate(150%)"
-          : "none",
-      }}
-    />
-    <span className="text-white font-semibold text-sm sm:text-base drop-shadow">
-      
-    </span>
+    👎 
   </motion.button>
 </div>
+
 
 
 
