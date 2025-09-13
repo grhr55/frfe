@@ -373,29 +373,11 @@ const fetchReactions = async (productId) => {
 
 
 <div className="space-y-3 mb-6 text-[clamp(14px,2vw,20px)] text-left bg-black/5 p-6 rounded-2xl shadow-lg">
-<div className="space-y-3">
-  <h1>
-    ⚙️ <span className="font-semibold text-gray-700">Complexity:</span>{" "}
-    <span className="text-blue-600 font-medium">{product.opis}</span>
-  </h1>
-  <h1>
-    📱 <span className="font-semibold text-gray-700">Adaptation:</span>{" "}
-    <span className="text-green-600 font-medium">1920px → 350px</span>
-  </h1>
-  <h1>
-    🔎 <span className="font-semibold text-gray-700">SEO:</span>{" "}
-    <span className="text-purple-600 font-medium">{product.seo}</span>
-  </h1>
-  <h1>
-    ⚡ <span className="font-semibold text-gray-700">Производительность:</span>{" "}
-    <span className="text-red-600 font-medium">{product.proizvol}</span>
-  </h1>
-  <h1>
-    🛠️ <span className="font-semibold text-gray-700">Технологии:</span>{" "}
-    <span className="text-orange-600 font-medium">{product.sozdan}</span>
-  </h1>
-</div>
-
+  <h1>⚙️ <span className="font-semibold">Complexity:</span>       {product.opis} </h1>
+  <h1>📱 <span className="font-semibold">Adaptation:</span> 1920px to 350px </h1>
+  <h1>🔎 <span className="font-semibold">SEO:</span>{product.seo}</h1>
+  <h1>⚡ <span className="font-semibold">Производительность:</span> {product.proizvol}</h1>
+  <h1>🛠️ <span className="font-semibold">Технологии:</span> {product.sozdan}</h1>
  
 </div>
 
