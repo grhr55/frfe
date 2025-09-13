@@ -347,7 +347,7 @@ const fetchReactions = async (productId) => {
 
  <div >
    <div className="absolute top-2 left-2 px-3 py-1 text-xs sm:text-sm bg-black/70 text-white rounded-full shadow-md">
-    🚀 Лейдинг
+    🚀 {product.teg}
   </div>
 
  </div>
