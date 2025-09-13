@@ -31,7 +31,7 @@ export default function FullStackPortfolio() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:2000/portfol/porf");
+      const res = await fetch("https://fourfeef.onrender.com/portfol/porf");
       if (!res.ok) throw new Error("Ошибка загрузки данных портфеля");
       const data = await res.json();
       setProducts(data);
@@ -62,7 +62,7 @@ export default function FullStackPortfolio() {
 const fetchReactions = async (productId) => {
   try {
     if (!productId) return;
-    const res = await fetch(`http://localhost:2000/likos/lice/${productId}`);
+    const res = await fetch(`https://fourfeef.onrender.com/likos/lice/${productId}`);
     if (!res.ok) throw new Error("Ошибка загрузки реакций");
     const arr = await res.json();
   
@@ -94,7 +94,7 @@ const fetchReactions = async (productId) => {
  
   const sendDeviceReaction = async ({ productId, deviceLike, deviceDislike,  views = 0 }) => {
     try {
-      await fetch("http://localhost:2000/likos/reaction", { 
+      await fetch("https://fourfeef.onrender.com/likos/reaction", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ deviceId, productId, likeCount: deviceLike, dizlace: deviceDislike,  views })
@@ -221,8 +221,8 @@ const fetchReactions = async (productId) => {
       href="https://t.me/Rocetk66"
       className="relative flex items-center w-full max-w-md  rounded-2xl shadow-lg p-4 overflow-visible cursor-pointer"
       whileHover="hover"
-      initial={{ opacity: 0, y: -300 }} // старт: прозрачная и выше
-  animate={{ opacity: 1, y: 0 }}   // финал: полностью видимая, на месте
+      initial={{ opacity: 0, y: -300 }} 
+  animate={{ opacity: 1, y: 0 }}   
   transition={{ duration: 1, ease: "easeOut" }} 
   
 
@@ -338,7 +338,7 @@ const fetchReactions = async (productId) => {
 
  <div className="w-full h-44 sm:h-52 md:h-56 lg:h-60 mb-4 overflow-hidden rounded-2xl border border-white/30 shadow-xl relative">
   <Image
-    src={`http://localhost:2000/portfol${product.img}`}
+    src={`https://fourfeef.onrender.com/portfol${product.img}`}
     alt={product.name || "Preview"}
     width={400}
     height={300}
@@ -373,11 +373,11 @@ const fetchReactions = async (productId) => {
 
 
 <div className="space-y-3 mb-6 text-[clamp(14px,2vw,20px)] text-left bg-black/5 p-6 rounded-2xl shadow-lg">
-  <h1>⚙️ <span className="font-semibold">Сложность:</span> Средний </h1>
-  <h1>📱 <span className="font-semibold">Адаптация:</span>  1920px до 350px </h1>
-  <h1>🔎 <span className="font-semibold">SEO:</span> Встроенная </h1>
-  <h1>⚡ <span className="font-semibold">Производительность:</span> A</h1>
-  <h1>🛠️ <span className="font-semibold">Технологии:</span> React/Next.js</h1>
+  <h1>⚙️ <span className="font-semibold">Complexity:</span> {product.opis} </h1>
+  <h1>📱 <span className="font-semibold">Adaptation:</span> 1920px to 350px </h1>
+  <h1>🔎 <span className="font-semibold">SEO:</span>{product.seo}</h1>
+  <h1>⚡ <span className="font-semibold">Производительность:</span> {product.proizvol}</h1>
+  <h1>🛠️ <span className="font-semibold">Технологии:</span> {product.sozdan}</h1>
  
 </div>
 
