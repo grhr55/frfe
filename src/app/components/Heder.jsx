@@ -4,8 +4,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Factions from './Factions';
-import Reint from './Reint'
-import Proiz from './Proiz'
+
 
 export default function FullStackPortfolio() {
   const [products, setProducts] = useState([]);
@@ -383,7 +382,7 @@ const fetchReactions = async (productId) => {
     <span className="text-[clamp(16px,4vw,20px)]">⚙️</span>
     <span className="font-semibold text-[clamp(16px,4vw,20px)]">Complexity:</span>
     <div className="flex-1 min-w-[80px]">
-      <Reint level={product.opis} />
+      <h1 >{product.opis} </h1>
     </div>
   </div>
 
@@ -406,7 +405,7 @@ const fetchReactions = async (productId) => {
     <span className="text-[clamp(16px,4vw,20px)]">⚡</span>
     <span className="font-semibold text-[clamp(16px,4vw,20px)]">Производительность:</span>
     <div className="flex-1 min-w-[80px]">
-      <Proiz grade={product.proizvol} />
+     <h1>{product.proizvol} </h1>
     </div>
   </div>
 
