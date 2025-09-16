@@ -203,15 +203,25 @@ const fetchReactions = async (productId) => {
 
   
   useEffect(() => {
-    controls.start({
-      background: [
-        "linear-gradient(120deg, #f59e0b, #3b82f6)",
-        "linear-gradient(120deg, #9333ea, #10b981)",
-        "linear-gradient(120deg, #f43f5e, #fbbf24)",
-        "linear-gradient(120deg, #3b82f6, #f59e0b)"
-      ],
-      transition: { duration: 15, ease: "linear", repeat: Infinity, repeatType: "loop" }
-    });
+    const gradients = [
+      "linear-gradient(120deg, #f59e0b, #3b82f6)",
+      "linear-gradient(120deg, #9333ea, #10b981)",
+      "linear-gradient(120deg, #f43f5e, #fbbf24)",
+      "linear-gradient(120deg, #3b82f6, #f59e0b)"
+    ];
+
+    let i = 0;
+    const animateGradient = () => {
+      controls.start({
+        background: gradients[i],
+        transition: { duration: 3, ease: "linear" }
+      }).then(() => {
+        i = (i + 1) % gradients.length;
+        animateGradient();
+      });
+    };
+
+    animateGradient();
   }, [controls]);
 
   const skills = [ "HTML", "CSS", "JavaScript", "React", "Node.js", "Next.js", "TailwindCSS", "MongoDB", "Telegram Web App", "Python", "GitHub", "Figma" ];
@@ -323,7 +333,7 @@ const fetchReactions = async (productId) => {
     transition-transform duration-300
     hover:scale-105 hover:shadow-3xl
     cursor-pointer flex flex-col 
-    sm:w-[280px] md:w-[330px] lg:w-[380px] xl:w-[380px] 2xl:w-[420px] w-[280px]
+    sm:w-[370px] md:w-[330px] lg:w-[380px] xl:w-[380px] 2xl:w-[420px] w-[350px]
     min-h-[480px] sm:min-h-[500px] md:min-h-[520px] lg:min-h-[540px] 
     p-4
     backdrop-blur-md
@@ -380,40 +390,40 @@ const fetchReactions = async (productId) => {
   {/* Complexity */}
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">⚙️</span>
-    <span className="font-semibold text-[clamp(16px,4vw,20px)]">Complexity:</span>
+    <span className="font-semibold text-[clamp(25px,9vw,20px)]">Complexity:</span>
     <div className="flex-1 min-w-[80px]">
-      <h1 >{product.opis} </h1>
+      <h1  >{product.opis} </h1>
     </div>
   </div>
 
   {/* Adaptation */}
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">📱</span>
-    <span className="font-semibold text-[clamp(16px,4vw,20px)]">Adaptation:</span>
-    <span className="flex-1 break-words">1920px to 350px</span>
+    <span className="font-bold text-[clamp(10px,5vw,20px)]">Adaptation:</span>
+    <span className="flex-1 font-black break-words text-[clamp(10px,4vw,20px)]">1920 to 350</span>
   </div>
 
   {/* SEO */}
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">🔎</span>
-    <span className="font-semibold text-[clamp(16px,4vw,20px)]">SEO:</span>
-    <span className="flex-1 break-words">{product.seo}</span>
+    <span className="font-semibold text-[clamp(20px,8vw,20px)]">SEO:</span>
+    <span className="flex-1 break-words text-[clamp(15px,6vw,20px)]">{product.seo}</span>
   </div>
 
   {/* Производительность */}
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">⚡</span>
-    <span className="font-semibold text-[clamp(16px,4vw,20px)]">Производительность:</span>
-    <div className="flex-1 min-w-[80px]">
-     <h1>{product.proizvol} </h1>
+    <span className="font-semibold text-[clamp(14px,5vw,20px)]">Производительность:</span>
+    <div className="flex-1  font-black">
+     <h1 className="text-[clamp(15px,6vw,20px)]" >{product.proizvol} </h1>
     </div>
   </div>
 
   {/* Технологии */}
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">🛠️</span>
-    <span className="font-semibold text-[clamp(16px,4vw,20px)]">Технологии:</span>
-    <span className="flex-1 break-words">{product.sozdan}</span>
+    <span className="font-bold text-[clamp(20px,8vw,20px)]">Технологии:</span>
+    <span className="flex-1 text-[clamp(15px,6vw,20px)] font-black break-words">{product.sozdan}</span>
   </div>
 
 </div>
