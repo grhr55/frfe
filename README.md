@@ -14,7 +14,7 @@ pnpm dev
 bun dev
 ```
 
-Open [https://fourfeef.onrender.com](https://fourfeef.onrender.com) with your browser to see the result.
+Open [https://rrfe.onrender.com](https://rrfe.onrender.com) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 

@@ -8,7 +8,7 @@ export default function PricingSection({setvid}) {
 
     return(
         <div>
-                  {/* Buttons */}
+                  
       <motion.div
         className="flex flex-wrap justify-center gap-6 mb-20"
         initial={{ opacity: 0 }}

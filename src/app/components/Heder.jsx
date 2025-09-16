@@ -4,6 +4,8 @@ import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Factions from './Factions';
+import Reint from './Reint'
+import Proiz from './Proiz'
 
 export default function FullStackPortfolio() {
   const [products, setProducts] = useState([]);
@@ -31,7 +33,7 @@ export default function FullStackPortfolio() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("https://fourfeef.onrender.com/portfol/porf");
+      const res = await fetch("https://rrfe.onrender.com/portfol/porf");
       if (!res.ok) throw new Error("Ошибка загрузки данных портфеля");
       const data = await res.json();
       setProducts(data);
@@ -62,7 +64,7 @@ export default function FullStackPortfolio() {
 const fetchReactions = async (productId) => {
   try {
     if (!productId) return;
-    const res = await fetch(`https://fourfeef.onrender.com/likos/lice/${productId}`);
+    const res = await fetch(`https://rrfe.onrender.com/likos/lice/${productId}`);
     if (!res.ok) throw new Error("Ошибка загрузки реакций");
     const arr = await res.json();
   
@@ -94,7 +96,7 @@ const fetchReactions = async (productId) => {
  
   const sendDeviceReaction = async ({ productId, deviceLike, deviceDislike,  views = 0 }) => {
     try {
-      await fetch("https://fourfeef.onrender.com/likos/reaction", { 
+      await fetch("https://rrfe.onrender.com/likos/reaction", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ deviceId, productId, likeCount: deviceLike, dizlace: deviceDislike,  views })
@@ -182,6 +184,8 @@ const fetchReactions = async (productId) => {
     await sendDeviceReaction({ productId, deviceLike, deviceDislike,  views: cur.views });
     await fetchReactions(productId);
   };
+
+  
 
 
     const extraImages = [
@@ -322,7 +326,7 @@ const fetchReactions = async (productId) => {
     cursor-pointer flex flex-col 
     sm:w-[280px] md:w-[330px] lg:w-[380px] xl:w-[380px] 2xl:w-[420px] w-[280px]
     min-h-[480px] sm:min-h-[500px] md:min-h-[520px] lg:min-h-[540px] 
-    p-6
+    p-4
     backdrop-blur-md
   "
   initial={{ opacity: 0, y: 50 }}
@@ -338,7 +342,7 @@ const fetchReactions = async (productId) => {
 
  <div className="w-full h-44 sm:h-52 md:h-56 lg:h-60 mb-4 overflow-hidden rounded-2xl border border-white/30 shadow-xl relative">
   <Image
-    src={`https://fourfeef.onrender.com/portfol${product.img}`}
+    src={`https://rrfe.onrender.com/portfol${product.img}`}
     alt={product.name || "Preview"}
     width={400}
     height={300}
@@ -372,14 +376,49 @@ const fetchReactions = async (productId) => {
 </div>
 
 
-<div className="space-y-3 mb-6 text-[clamp(14px,2vw,20px)] text-left bg-black/5 p-6 rounded-2xl shadow-lg">
-  <h1>⚙️ <span className="font-semibold">Complexity:</span>       {product.opis} </h1>
-  <h1>📱 <span className="font-semibold">Adaptation:</span> 1920px to 350px </h1>
-  <h1>🔎 <span className="font-semibold">SEO:</span>{product.seo}</h1>
-  <h1>⚡ <span className="font-semibold">Производительность:</span> {product.proizvol}</h1>
-  <h1>🛠️ <span className="font-semibold">Технологии:</span> {product.sozdan}</h1>
- 
+<div className="space-y-4 mb-6 p-4 sm:p-6 bg-black/5 rounded-2xl shadow-lg text-left text-[clamp(14px,2vw,18px)]">
+  
+  {/* Complexity */}
+  <div className="flex flex-wrap items-center gap-2">
+    <span className="text-[clamp(16px,4vw,20px)]">⚙️</span>
+    <span className="font-semibold text-[clamp(16px,4vw,20px)]">Complexity:</span>
+    <div className="flex-1 min-w-[80px]">
+      <Reint level={product.opis} />
+    </div>
+  </div>
+
+  {/* Adaptation */}
+  <div className="flex flex-wrap items-center gap-2">
+    <span className="text-[clamp(16px,4vw,20px)]">📱</span>
+    <span className="font-semibold text-[clamp(16px,4vw,20px)]">Adaptation:</span>
+    <span className="flex-1 break-words">1920px to 350px</span>
+  </div>
+
+  {/* SEO */}
+  <div className="flex flex-wrap items-center gap-2">
+    <span className="text-[clamp(16px,4vw,20px)]">🔎</span>
+    <span className="font-semibold text-[clamp(16px,4vw,20px)]">SEO:</span>
+    <span className="flex-1 break-words">{product.seo}</span>
+  </div>
+
+  {/* Производительность */}
+  <div className="flex flex-wrap items-center gap-2">
+    <span className="text-[clamp(16px,4vw,20px)]">⚡</span>
+    <span className="font-semibold text-[clamp(16px,4vw,20px)]">Производительность:</span>
+    <div className="flex-1 min-w-[80px]">
+      <Proiz grade={product.proizvol} />
+    </div>
+  </div>
+
+  {/* Технологии */}
+  <div className="flex flex-wrap items-center gap-2">
+    <span className="text-[clamp(16px,4vw,20px)]">🛠️</span>
+    <span className="font-semibold text-[clamp(16px,4vw,20px)]">Технологии:</span>
+    <span className="flex-1 break-words">{product.sozdan}</span>
+  </div>
+
 </div>
+
 
 
 <div className="flex justify-center gap-6 p-4">
