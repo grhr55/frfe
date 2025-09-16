@@ -4,6 +4,8 @@ import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Factions from './Factions';
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 
 export default function FullStackPortfolio() {
@@ -56,7 +58,7 @@ export default function FullStackPortfolio() {
   };
 
 
-  
+
   
 
   
@@ -185,6 +187,9 @@ const fetchReactions = async (productId) => {
   };
 
   
+  const TextWithSkeleton = ({ isLoading, children, width }) => {
+  return isLoading ? <Skeleton width={width} /> : children;
+};
 
 
     const extraImages = [
@@ -342,25 +347,36 @@ const fetchReactions = async (productId) => {
   animate={{ opacity: 1, y: 0 }}
   transition={{ delay: index * 0.12 }}
 >
+
+  
   <section id='portfol'>
      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 text-center text-white drop-shadow-lg">
-    {product.name}
+       <TextWithSkeleton isLoading={!product?.name} height={30} width="70%" className="mb-4" >
+        {product.name}
+       </TextWithSkeleton>
   </h3>
   </section>
  
 
  <div className="w-full h-44 sm:h-52 md:h-56 lg:h-60 mb-4 overflow-hidden rounded-2xl border border-white/30 shadow-xl relative">
-  <Image
+
+  <TextWithSkeleton isLoading={!product?.name} height='100%'  width="70%" className="mb-4" >
+         <Image
     src={`https://iefhie.onrender.com/portfol${product.img}`}
     alt={product.name || "Preview"}
     width={400}
     height={300}
     className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
   />
+       </TextWithSkeleton>
+
 
  <div >
    <div className="absolute top-2 left-2 px-3 py-1 text-xs sm:text-sm bg-black/70 text-white rounded-full shadow-md">
-    🚀 {product.teg}
+     <TextWithSkeleton isLoading={!product?.teg} height='100%' width="70%" className="mb-4" >
+       🚀 {product.teg}
+       </TextWithSkeleton>
+  
   </div>
 
  </div>
@@ -388,11 +404,14 @@ const fetchReactions = async (productId) => {
 <div className="space-y-4 mb-6 p-4 sm:p-6 bg-black/5 rounded-2xl shadow-lg text-left text-[clamp(14px,2vw,18px)]">
   
   {/* Complexity */}
+  
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">⚙️</span>
     <span className="font-semibold text-[clamp(25px,9vw,20px)]">Complexity:</span>
     <div className="flex-1 min-w-[80px]">
-      <h1  >{product.opis} </h1>
+        <TextWithSkeleton isLoading={!product?.opis} height='100%' width="70%" className="mb-4" >
+        {product.opis}
+       </TextWithSkeleton>
     </div>
   </div>
 
@@ -400,14 +419,18 @@ const fetchReactions = async (productId) => {
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">📱</span>
     <span className="font-bold text-[clamp(10px,5vw,20px)]">Adaptation:</span>
-    <span className="flex-1 font-black break-words text-[clamp(10px,4vw,20px)]">1920 to 350</span>
+    <span className="flex-1 font-black break-words text-[clamp(14px,6vw,20px)]">1920 to 350</span>
   </div>
 
   {/* SEO */}
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">🔎</span>
     <span className="font-semibold text-[clamp(20px,8vw,20px)]">SEO:</span>
-    <span className="flex-1 break-words text-[clamp(15px,6vw,20px)]">{product.seo}</span>
+    <span className="flex-1 break-words text-[clamp(15px,6vw,20px)]">     
+      <TextWithSkeleton isLoading={!product?.seo} height='100%' width="70%" className="mb-4" >
+      {product.seo}
+       </TextWithSkeleton>
+      </span>
   </div>
 
   {/* Производительность */}
@@ -415,7 +438,11 @@ const fetchReactions = async (productId) => {
     <span className="text-[clamp(16px,4vw,20px)]">⚡</span>
     <span className="font-semibold text-[clamp(14px,5vw,20px)]">Производительность:</span>
     <div className="flex-1  font-black">
-     <h1 className="text-[clamp(15px,6vw,20px)]" >{product.proizvol} </h1>
+     <h1 className="text-[clamp(15px,6vw,20px)]" >
+          <TextWithSkeleton isLoading={!product?.proizvol} height='100%' width="70%" className="mb-4" >
+      {product.proizvol}
+       </TextWithSkeleton>
+ </h1>
     </div>
   </div>
 
@@ -423,7 +450,10 @@ const fetchReactions = async (productId) => {
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">🛠️</span>
     <span className="font-bold text-[clamp(20px,8vw,20px)]">Технологии:</span>
-    <span className="flex-1 text-[clamp(15px,6vw,20px)] font-black break-words">{product.sozdan}</span>
+    <span className="flex-1 text-[clamp(15px,6vw,20px)] font-black break-words">
+                <TextWithSkeleton isLoading={!product?.sozdan} height='100%' width="70%" className="mb-4" >
+      {product.sozdan}
+       </TextWithSkeleton></span>
   </div>
 
 </div>
