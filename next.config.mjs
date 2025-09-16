@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 images: {
-    domains: ['fourfeef.onrender.com','localhost'], // сюда добавь хост
+    domains: ['iefhie.onrender.com','localhost'],
   },
 };
 export default nextConfig;
