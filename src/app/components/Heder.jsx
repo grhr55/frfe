@@ -34,19 +34,8 @@ export default function FullStackPortfolio() {
 
   }, [deviceId]);
   
-  useEffect(() => {
-    const key = "local_views";
-    const savedViews = localStorage.getItem(key);
 
-    if (!savedViews) {
-      // Если ещё нет записи, ставим 1
-      localStorage.setItem(key, "1");
-      setVid(1);
-    } else {
-      // Если уже есть запись, читаем её
-      setVid(parseInt(savedViews, 10));
-    }
-  }, []);
+
 
   
 
@@ -78,18 +67,17 @@ export default function FullStackPortfolio() {
 
 
   
-
-  
 const fetchReactions = async (productId) => {
   try {
     if (!productId) return;
+
     const res = await fetch(`https://iefhie.onrender.com/likos/lice/${productId}`);
     if (!res.ok) throw new Error("Ошибка загрузки реакций");
     const arr = await res.json();
-  
 
     let likeCount = 0, dizlace = 0, views = 0;
     let liked = false, disliked = false;
+    let hasViewed = false;
 
     arr.forEach(doc => {
       likeCount += Number(doc.likeCount || 0);
@@ -99,8 +87,15 @@ const fetchReactions = async (productId) => {
       if (doc.deviceId === deviceId) {
         liked = Number(doc.likeCount || 0) > 0;
         disliked = Number(doc.dizlace || 0) > 0;
+        hasViewed = Number(doc.views || 0) > 0; // уже был просмотр
       }
     });
+
+    // 👉 при первом заходе засчитываем просмотр
+    if (!hasViewed) {
+      await sendDeviceReaction({ productId, views: 1 });
+      views += 1;
+    }
 
     setReactions(prev => ({
       ...prev,
@@ -112,17 +107,7 @@ const fetchReactions = async (productId) => {
   }
 };
 
- 
 const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0, views = 0 }) => {
-  if (typeof window === "undefined") return;
-
-  
-  const viewedKey = `viewed_${productId}`;
-  if (!localStorage.getItem(viewedKey)) {
-    views = 1; 
-    localStorage.setItem(viewedKey, "true"); 
-  }
-
   try {
     await fetch("https://iefhie.onrender.com/likos/reaction", { 
       method: "POST",
@@ -137,7 +122,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
   
   const handleLike = async (productId) => {
-    const cur = reactions[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,  views: 0 };
+    const cur = reactions[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,   };
 
     
     let likeDelta = 0, dizDelta = 0;
@@ -155,7 +140,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
     
     setReactions(prev => {
-      const agg = prev[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,  views: 0 };
+      const agg = prev[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,   };
       return {
         ...prev,
         [productId]: {
@@ -171,7 +156,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     
     const deviceLike = newLiked ? 1 : 0;
     const deviceDislike = newDisliked ? 1 : 0;
-    await sendDeviceReaction({ productId, deviceLike, deviceDislike,  views: cur.views });
+    await sendDeviceReaction({ productId, deviceLike, deviceDislike,  });
 
     
     await fetchReactions(productId);
@@ -179,7 +164,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
   
   const handleDislike = async (productId) => {
-    const cur = reactions[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,  views: 0 };
+    const cur = reactions[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false, };
 
     let dizDelta = 0, likeDelta = 0;
     const newDisliked = !cur.disliked;
@@ -195,7 +180,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     }
 
     setReactions(prev => {
-      const agg = prev[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,  views: 0 };
+      const agg = prev[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,  };
       return {
         ...prev,
         [productId]: {
@@ -210,7 +195,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
     const deviceLike = newLiked ? 1 : 0;
     const deviceDislike = newDisliked ? 1 : 0;
-    await sendDeviceReaction({ productId, deviceLike, deviceDislike,  views: cur.views });
+    await sendDeviceReaction({ productId, deviceLike, deviceDislike,  });
     await fetchReactions(productId);
   };
 
