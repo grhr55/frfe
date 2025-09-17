@@ -31,7 +31,10 @@ export default function FullStackPortfolio() {
   useEffect(() => {
     if (!deviceId) return;
     fetchProducts();
+
   }, [deviceId]);
+
+  
 
   const fetchProducts = async () => {
     try {
@@ -96,17 +99,27 @@ const fetchReactions = async (productId) => {
 };
 
  
-  const sendDeviceReaction = async ({ productId, deviceLike, deviceDislike,  views = 0 }) => {
-    try {
-      await fetch("https://iefhie.onrender.com/likos/reaction", { 
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ deviceId, productId, likeCount: deviceLike, dizlace: deviceDislike,  views })
-      });
-    } catch (err) {
-      console.error("sendDeviceReaction:", err);
-    }
-  };
+const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0, views = 0 }) => {
+  if (typeof window === "undefined") return;
+
+  
+  const viewedKey = `viewed_${productId}`;
+  if (!localStorage.getItem(viewedKey)) {
+    views = 1; 
+    localStorage.setItem(viewedKey, "true"); 
+  }
+
+  try {
+    await fetch("https://iefhie.onrender.com/likos/reaction", { 
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ deviceId, productId, likeCount: deviceLike, dizlace: deviceDislike, views })
+    });
+  } catch (err) {
+    console.error("sendDeviceReaction:", err);
+  }
+};
+
 
   
   const handleLike = async (productId) => {
@@ -419,7 +432,7 @@ const fetchReactions = async (productId) => {
   {/* Adaptation */}
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">📱</span>
-    <span className="font-bold text-[clamp(10px,5vw,20px)]">Adaptation:</span>
+    <span className="font-bold text-[clamp(10px,4vw,20px)]">Adaptation:</span>
     <span className="flex-1 font-black break-words text-[clamp(14px,6vw,20px)]">1920 to 350</span>
   </div>
 
@@ -437,7 +450,7 @@ const fetchReactions = async (productId) => {
   {/* Производительность */}
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">⚡</span>
-    <span className="font-semibold text-[clamp(14px,5vw,20px)]">Производительность:</span>
+    <span className="font-semibold text-[clamp(14px,5vw,20px)]">Performance:</span>
     <div className="flex-1  font-black">
      <h1 className="text-[clamp(15px,6vw,20px)]" >
           <TextWithSkeleton isLoading={!product?.proizvol} height='100%' width="70%" className="mb-4" >
@@ -450,7 +463,7 @@ const fetchReactions = async (productId) => {
   {/* Технологии */}
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">🛠️</span>
-    <span className="font-bold text-[clamp(20px,8vw,20px)]">Технологии:</span>
+    <span className="font-bold text-[clamp(20px,8vw,20px)]">Technologies:</span>
     <span className="flex-1 text-[clamp(15px,6vw,20px)] font-black break-words">
                 <TextWithSkeleton isLoading={!product?.sozdan} height='100%' width="70%" className="mb-4" >
       {product.sozdan}
