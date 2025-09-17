@@ -6,6 +6,7 @@ import Image from "next/image";
 import Factions from './Factions';
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Nrgrg from './Nrgrg'
 
 
 export default function FullStackPortfolio() {
@@ -360,15 +361,15 @@ const fetchReactions = async (productId) => {
 
  <div className="w-full h-44 sm:h-52 md:h-56 lg:h-60 mb-4 overflow-hidden rounded-2xl border border-white/30 shadow-xl relative">
 
-  <TextWithSkeleton isLoading={!product?.name} height='100%'  width="70%" className="mb-4" >
-         <Image
+
+    <ImageWithSkeleton
     src={`https://iefhie.onrender.com/portfol${product.img}`}
     alt={product.name || "Preview"}
     width={400}
     height={300}
     className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
   />
-       </TextWithSkeleton>
+    
 
 
  <div >
