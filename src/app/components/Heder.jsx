@@ -6,7 +6,7 @@ import Image from "next/image";
 import Factions from './Factions';
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import Nrgrg from './Nrgrg'
+import ImageWithSkeleton from './Nrgrg'
 
 
 export default function FullStackPortfolio() {
