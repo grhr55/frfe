@@ -33,6 +33,20 @@ export default function FullStackPortfolio() {
     fetchProducts();
 
   }, [deviceId]);
+  
+  useEffect(() => {
+    const key = "local_views";
+    const savedViews = localStorage.getItem(key);
+
+    if (!savedViews) {
+      // Если ещё нет записи, ставим 1
+      localStorage.setItem(key, "1");
+      setVid(1);
+    } else {
+      // Если уже есть запись, читаем её
+      setVid(parseInt(savedViews, 10));
+    }
+  }, []);
 
   
 
