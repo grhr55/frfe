@@ -11,13 +11,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "IT Fullstack Web – Web & App Development",
-  description:
-    "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
-  url: "https://portfolio45445.netlify.app/", 
-  image: "https://portfolio45445.netlify.app/og-image.png", // картинка 1200x630px
-};
+export async function generateMetadata() {
+  return {
+    title: "IT Fullstack Web – Web & App Development",
+    description: "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
+    openGraph: {
+      title: "IT Fullstack Web – Web & App Development",
+      description: "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
+      type: "website",
+      url: "https://portfolio45445.netlify.app/",
+      images: [
+        {
+          url: "https://portfolio45445.netlify.app/og-image.png",
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "IT Fullstack Web – Web & App Development",
+      description: "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
+      images: ["https://portfolio45445.netlify.app/og-image.png"],
+    },
+  };
+}
 
 export default function RootLayout({ children }) {
   return (
