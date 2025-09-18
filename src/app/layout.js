@@ -16,7 +16,7 @@ export const metadata = {
   description:
     "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
   url: "https://portfolio45445.netlify.app/", 
-  image: "https://portfolio45445.netlify.app/og-image.png", // замените на большую картинку 1200x630px
+  image: "https://portfolio45445.netlify.app/og-image.png", // картинка 1200x630px
 };
 
 export default function RootLayout({ children }) {
@@ -42,6 +42,23 @@ export default function RootLayout({ children }) {
         <meta name="twitter:image" content={metadata.image} />
 
         <link rel="icon" href="/favicon.ico" />
+
+        {/* JSON-LD для структурированных данных */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": metadata.title,
+          "url": metadata.url,
+          "description": metadata.description,
+          "publisher": {
+            "@type": "Organization",
+            "name": metadata.title,
+            "logo": {
+              "@type": "ImageObject",
+              "url": metadata.image
+            }
+          }
+        })}} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
