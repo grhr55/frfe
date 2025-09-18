@@ -420,7 +420,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
   
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">⚙️</span>
-    <span className="font-semibold text-[clamp(25px,9vw,20px)]">Complexity:</span>
+    <span className="font-semibold text-[clamp(22px,9vw,20px)]">Complexity:</span>
     <div className="flex-1 min-w-[80px]">
         <TextWithSkeleton isLoading={!product?.opis} height='100%' width="70%" className="mb-4" >
         {product.opis}
