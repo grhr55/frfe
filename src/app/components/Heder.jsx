@@ -1,4 +1,5 @@
 
+"use client";
 import Head from 'next/head';
 
 // Пример: динамические SEO-данные
@@ -66,7 +67,6 @@ export default async function Page() {
   );
 }
 
-"use client";
 
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
