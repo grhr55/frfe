@@ -298,7 +298,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
     
       <div className="ml-4 flex flex-col text-left z-10 drop-shadow-lg ">
-        <h1 className="font-bold text-[clamp(6px,6vw,25px)] drop-shadow-lg">IT Fullstack Web</h1>
+        <h2 className="font-bold text-[clamp(6px,6vw,25px)] drop-shadow-lg">IT Fullstack Web</h2>
         <p className="text-sm  text-[clamp(6px,6vw,25px)] mt-1 drop-shadow-lg">💻 Разработчик Сайтов</p>
       </div>
 
