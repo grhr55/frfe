@@ -257,13 +257,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     <motion.div className="  min-h-screen flex flex-col items-center justify-center text-center text-white p-6 overflow-hidden relative" animate={controls}>
 
 
-        <Seo 
-      title="IT Fullstack Web – Web & App Development"
-      description="Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization."
-      url="https://portfolio45445.netlify.app/"
-      image="https://portfolio45445.netlify.app/favicon.ico"
-      keywords="IT, Fullstack, React, Next.js, Node.js, SEO"
-    />
+        <Seo {...metadata} />
 
   <motion.a
       href="https://t.me/Rocetk66"
