@@ -1,3 +1,71 @@
+
+import Head from 'next/head';
+
+// Пример: динамические SEO-данные
+export default async function Page() {
+  // Можно получить данные из API или базы
+  const metadata = {
+    title: "IT Fullstack Web – Web & App Development",
+    description: "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
+    url: "https://portfolio45445.netlify.app/",
+    image: "https://portfolio45445.netlify.app/favicon.ico", // 1200x630px
+    keywords: "IT, Fullstack, React, Next.js, Node.js, SEO"
+  };
+
+  return (
+    <>
+      <Head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="keywords" content={metadata.keywords} />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:description" content={metadata.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={metadata.url} />
+        <meta property="og:image" content={metadata.image} />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metadata.title} />
+        <meta name="twitter:description" content={metadata.description} />
+        <meta name="twitter:image" content={metadata.image} />
+
+        {/* Canonical URL */}
+        <link rel="canonical" href={metadata.url} />
+
+        {/* JSON-LD для структурированных данных */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": metadata.title,
+              "url": metadata.url,
+              "description": metadata.description,
+              "publisher": {
+                "@type": "Organization",
+                "name": metadata.title,
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": metadata.image
+                }
+              }
+            })
+          }}
+        />
+      </Head>
+
+      <main>
+        <h1>Welcome to IT Fullstack Web</h1>
+        <p>Explore our projects, web & app development services, and more.</p>
+      </main>
+    </>
+  );
+}
+
 "use client";
 
 import { motion, useAnimation } from "framer-motion";
