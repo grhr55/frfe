@@ -351,7 +351,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     transition-transform duration-300
     hover:scale-105 hover:shadow-3xl
     cursor-pointer flex flex-col 
-    sm:w-[370px] md:w-[330px] lg:w-[380px] xl:w-[380px] 2xl:w-[420px] w-[350px]
+    sm:w-[370px] md:w-[340px] lg:w-[380px] xl:w-[380px] 2xl:w-[420px] w-[350px]
     min-h-[480px] sm:min-h-[500px] md:min-h-[520px] lg:min-h-[540px] 
     p-4
     backdrop-blur-md
