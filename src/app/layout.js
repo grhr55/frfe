@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,74 +12,43 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export async function generateMetadata() {
-  return {
-    title: "IT Fullstack Web – Web & App Development",
-    description: "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
-    openGraph: {
-      title: "IT Fullstack Web – Web & App Development",
-      description: "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
-      type: "website",
-      url: "https://portfolio45445.netlify.app/",
-      images: [
-        {
-          url: "https://portfolio45445.netlify.app/og-image.png",
-          width: 1200,
-          height: 630,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "IT Fullstack Web – Web & App Development",
-      description: "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
-      images: ["https://portfolio45445.netlify.app/og-image.png"],
-    },
-  };
-}
+export const metadata = {
+  title: "IT Fullstack Web – Web & App Development",
+  description:
+    "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
+  url: "https://portfolio45445.netlify.app/", 
+  image: "https://portfolio45445.netlify.app/favicon.ico",
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
+      <Head>
+       
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="UTF-8" />
 
-        {/* Open Graph */}
+    
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={metadata.image} />
         <meta property="og:url" content={metadata.url} />
 
-        {/* Twitter Card */}
+    =
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={metadata.title} />
         <meta name="twitter:description" content={metadata.description} />
         <meta name="twitter:image" content={metadata.image} />
 
+        
         <link rel="icon" href="/favicon.ico" />
-
-        {/* JSON-LD для структурированных данных */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": metadata.title,
-          "url": metadata.url,
-          "description": metadata.description,
-          "publisher": {
-            "@type": "Organization",
-            "name": metadata.title,
-            "logo": {
-              "@type": "ImageObject",
-              "url": metadata.image
-            }
-          }
-        })}} />
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      </Head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {children}
       </body>
     </html>
