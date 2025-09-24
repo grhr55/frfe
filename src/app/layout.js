@@ -1,6 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Head from "next/head";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,41 +10,36 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
+т
 export const metadata = {
   title: "IT Fullstack Web – Web & App Development",
   description:
     "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
-  url: "https://portfolio45445.netlify.app/", 
-  image: "https://portfolio45445.netlify.app/favicon.ico",
+  metadataBase: new URL("https://portfolio45445.netlify.app"),
+  openGraph: {
+    type: "website",
+    url: "https://portfolio45445.netlify.app/",
+    title: "IT Fullstack Web – Web & App Development",
+    description:
+      "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
+    images: [
+      "https://opengraph.b-cdn.net/production/images/c5980f0b-f9c4-4372-b1fd-7429fe35be80.jpg?token=WoFDOxn2IEpUTljHv8h9x-TYvUYEKhMtKIHsX5sH4Og&height=640&width=640&expires=33294744186",
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "IT Fullstack Web – Web & App Development",
+    description:
+      "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
+    images: [
+      "https://opengraph.b-cdn.net/production/images/c5980f0b-f9c4-4372-b1fd-7429fe35be80.jpg?token=WoFDOxn2IEpUTljHv8h9x-TYvUYEKhMtKIHsX5sH4Og&height=640&width=640&expires=33294744186",
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-       
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta charSet="UTF-8" />
-
-    
-        <meta property="og:title" content={metadata.title} />
-        <meta property="og:description" content={metadata.description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content={metadata.image} />
-        <meta property="og:url" content={metadata.url} />
-
-    =
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={metadata.title} />
-        <meta name="twitter:description" content={metadata.description} />
-        <meta name="twitter:image" content={metadata.image} />
-
-        
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
