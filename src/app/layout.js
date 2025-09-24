@@ -10,8 +10,8 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-т
-export const metadata = {
+
+ export const metadata = {
   title: "IT Fullstack Web – Web & App Development",
   description:
     "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
