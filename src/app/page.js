@@ -1,10 +1,6 @@
 import Heder from './components/Heder';
 
-
-export default function Home({metadata}) {
-
-
-  const metadata = {
+export const metadata = {
   title: "IT Fullstack Web – Web & App Development",
   description:
     "Full-stack web development: React, Next.js, Node.js, databases, and SEO optimization.",
@@ -29,6 +25,12 @@ export default function Home({metadata}) {
     ],
   },
 };
+
+
+export default function Home() {
+
+
+  
 
   return (
     <div>
