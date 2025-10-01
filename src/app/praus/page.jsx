@@ -78,7 +78,7 @@ export default function PricingSection() {
 
 
       <Link href="/">
-       <button className="px-8 text-[20px] mt-[50px] py-4 border border-white rounded-xl text-white font-bold hover:bg-white hover:text-black transition-colors hover:scale-105">
+       <button className="px-8 cursor-pointer  text-[20px] mt-[50px] py-4 border border-white rounded-xl text-white font-bold hover:bg-white hover:text-black transition-colors hover:scale-105">
           ←
         </button>
       </Link>

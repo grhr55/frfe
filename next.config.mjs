@@ -1,7 +1,6 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-images: {
+export default {
+  images: {
     domains: ['iefhie.onrender.com'],
   },
+  output: 'export',
 };
-export default nextConfig;

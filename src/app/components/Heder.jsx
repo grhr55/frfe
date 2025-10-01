@@ -412,14 +412,14 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 <div className="flex flex-col gap-3 mb-4 flex-grow justify-center">
   {product.orig && (
     <a href={product.orig} target="_blank" rel="noreferrer">
-      <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-r from-blue-400 to-indigo-500 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+      <button className="w-full cursor-pointer px-4 py-3 rounded-xl bg-gradient-to-r from-blue-400 to-indigo-500 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
         ⚡ Ready Layout
       </button>
     </a>
   )}
   {product.figma && (
     <a href={product.figma} target="_blank" rel="noreferrer">
-      <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-r from-pink-400 to-purple-500 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+      <button className="w-full  cursor-pointer  px-4 py-3 rounded-xl bg-gradient-to-r from-pink-400 to-purple-500 text-white font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
         🎨 Design Layout
       </button>
     </a>
