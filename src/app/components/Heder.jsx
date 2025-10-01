@@ -363,7 +363,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     rounded-3xl shadow-2xl
     transition-transform duration-300
     hover:scale-105 hover:shadow-3xl
-    flex flex-col 
+     flex flex-col 
     sm:w-[370px] md:w-[340px] lg:w-[380px] xl:w-[380px] 2xl:w-[420px] w-[350px]
     min-h-[480px] sm:min-h-[500px] md:min-h-[520px] lg:min-h-[540px] 
     p-4
@@ -486,11 +486,12 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
 
 
-<div className="flex justify-center gap-6 p-4">
+<div className="flex  justify-center gap-6 p-4">
  
   <motion.button
     onClick={() => handleLike(product._id)}
     className={`
+      cursor-pointer
       flex items-center justify-center gap-2
       px-5 py-3 rounded-2xl shadow-lg
       text-white font-bold text-base
@@ -509,6 +510,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
   <motion.button
     onClick={() => handleDislike(product._id)}
     className={`
+      cursor-pointer
       flex items-center justify-center gap-2
       px-5 py-3 rounded-2xl shadow-lg
       text-white font-bold text-base
