@@ -12,6 +12,7 @@ import Factions from './Factions';
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import ImageWithSkeleton from './Nrgrg'
+import { ReactTyped } from "react-typed";
 
 
 
@@ -330,10 +331,29 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
       
       
-      <motion.div initial={{ opacity: 0, y: -100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-12">
-        <h1 className="text-[clamp(33px,9vw,70px)] font-extrabold mb-4 mt-[60px] drop-shadow-lg leading-tight">Hi I'm a Full-Stack Developer + SEO</h1>
-        <p className="text-xl md:text-2xl max-w-3xl mx-auto drop-shadow-md">I create modern, dynamic websites using the latest technologies.</p>
-      </motion.div>
+     <motion.div
+  initial={{ opacity: 0, y: -40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: 'easeOut' }}
+  className="mb-12"
+>
+  <h1 className="text-[clamp(33px,9vw,70px)] font-extrabold mb-4 mt-[60px] drop-shadow-lg leading-tight text-center">
+    <ReactTyped
+      strings={[
+        "Hi, I'm a Full-Stack Developer + SEO",
+        "I work with you or our guarantees",
+      ]}
+      typeSpeed={50}
+      backSpeed={50}
+      loop
+    />
+  </h1>
+
+  <p className="text-xl md:text-2xl max-w-3xl mx-auto drop-shadow-md text-center">
+    I create modern, dynamic websites using the latest technologies.
+  </p>
+</motion.div>
+
 
       <motion.div className="flex flex-wrap justify-center gap-3 mb-16" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 1 }}>
         {skills.map((skill, i) => (
