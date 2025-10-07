@@ -69,7 +69,7 @@ export default function FullStackPortfolio() {
 
     
     } catch (err) {
-      console.error("fetchProducts:", err);
+      console.error("fethProducts:", err);
     }
   };
 
