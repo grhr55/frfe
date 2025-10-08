@@ -23,7 +23,7 @@ export default function FullStackPortfolio() {
   const [vid, setVid] = useState(true);
   const controls = useAnimation();
 
-  console.log( 'Продукты ' ,products);
+  console.log( 'Продукы ' ,products);
   
   
 
