@@ -23,6 +23,8 @@ export default function FullStackPortfolio() {
   const [vid, setVid] = useState(true);
   const controls = useAnimation();
 
+  console.log( 'Продукты ' ,products);
+  
   
 
   
@@ -58,7 +60,7 @@ export default function FullStackPortfolio() {
       
       const initial = {};
       data.forEach(p => {
-        initial[p._id] = { likeCount: 0, dizlace: 0, liked: false, disliked: false,  views: 0 };
+        initial[p._id] = { likeCount: 0, dizlace: 0, liked: 0, disliked: 0,  views: 0 };
       });
       setReactions(initial);
 
@@ -72,6 +74,8 @@ export default function FullStackPortfolio() {
       console.error(err);
     }
   };
+  console.log("даные" ,fetchProducts);
+  
 
 
 
@@ -96,11 +100,11 @@ const fetchReactions = async (productId) => {
       if (doc.deviceId === deviceId) {
         liked = Number(doc.likeCount || 0) > 0;
         disliked = Number(doc.dizlace || 0) > 0;
-        hasViewed = Number(doc.views || 0) > 0; // уже был просмотр
+        hasViewed = Number(doc.views || 0) > 0; 
       }
     });
 
-    // 👉 при первом заходе засчитываем просмотр
+   
     if (!hasViewed) {
       await sendDeviceReaction({ productId, views: 1 });
       views += 1;
