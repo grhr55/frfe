@@ -1,6 +1,6 @@
 export default {
   images: {
-    domains: ['iefhie.onrender.com'],
+    domains: ['portfolio45445.netlify.app/'],
   },
  
 };

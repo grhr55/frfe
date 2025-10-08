@@ -69,7 +69,7 @@ export default function FullStackPortfolio() {
 
     
     } catch (err) {
-      console.error("fethProducts:", err);
+      console.error(err);
     }
   };
 
@@ -112,7 +112,7 @@ const fetchReactions = async (productId) => {
     }));
 
   } catch (err) {
-    console.error("fetchReactions:", err);
+    console.error(err);
   }
 };
 
@@ -363,7 +363,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
         ))}
       </motion.div>
 
-      <Factions setvid={setVid} />
+      <Factions  setvid={setVid} />
 
       {!vid && (
         <motion.div className="w-[100%] flex justify-center" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
@@ -550,6 +550,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
 
 </motion.div>
+
 
               );
             })}
