@@ -11,8 +11,10 @@ import Image from "next/image";
 import Factions from './Factions';
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import ImageWithSkeleton from './Nrgrg'
 import { ReactTyped } from "react-typed";
+
+
+
 
 
 
@@ -21,9 +23,9 @@ export default function FullStackPortfolio() {
   const [reactions, setReactions] = useState({}); 
   const [deviceId, setDeviceId] = useState(null);
   const [vid, setVid] = useState(true);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const controls = useAnimation();
 
-  console.log( 'Продукы ' ,products);
   
   
 
@@ -52,7 +54,7 @@ export default function FullStackPortfolio() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("https://iefhie.onrender.com/portfol/porf");
+      const res = await fetch("http://localhost:8000/portfol/porf");
       if (!res.ok) throw new Error("Ошибка загрузки данных портфеля");
       const data = await res.json();
       setProducts(data);
@@ -70,11 +72,14 @@ export default function FullStackPortfolio() {
       });
 
     
+      
+
+    
     } catch (err) {
       console.error(err);
     }
   };
-  console.log("даные" ,fetchProducts);
+ 
   
 
 
@@ -84,7 +89,7 @@ const fetchReactions = async (productId) => {
   try {
     if (!productId) return;
 
-    const res = await fetch(`https://iefhie.onrender.com/likos/lice/${productId}`);
+    const res = await fetch(`http://localhost:8000/likos/lice/${productId}`);
     if (!res.ok) throw new Error("Ошибка загрузки реакций");
     const arr = await res.json();
 
@@ -92,50 +97,72 @@ const fetchReactions = async (productId) => {
     let liked = false, disliked = false;
     let hasViewed = false;
 
-    arr.forEach(doc => {
-      likeCount += Number(doc.likeCount || 0);
-      dizlace += Number(doc.dizlace || 0);
-      views += Number(doc.views || 0);
+  arr.forEach(doc => {
+  if (doc.productId !== productId) return; 
 
-      if (doc.deviceId === deviceId) {
-        liked = Number(doc.likeCount || 0) > 0;
-        disliked = Number(doc.dizlace || 0) > 0;
-        hasViewed = Number(doc.views || 0) > 0; 
-      }
-    });
+  likeCount += Number(doc.likeCount || 0);
+  dizlace += Number(doc.dizlace || 0);
+  views += Number(doc.views || 0);
+
+  if (doc.deviceId === deviceId) {
+    liked = Number(doc.likeCount || 0) > 0;
+    disliked = Number(doc.dizlace || 0) > 0;
+    hasViewed = Number(doc.views || 0) > 0; 
+  }
+});
+
+   
+    
+
 
    
     if (!hasViewed) {
       await sendDeviceReaction({ productId, views: 1 });
       views += 1;
     }
+     
 
     setReactions(prev => ({
       ...prev,
       [productId]: { likeCount, dizlace, views, liked, disliked }
     }));
 
+  
+
+      console.log("🧠 Обновляем реакции:", productId, { likeCount, dizlace, liked, disliked });
+
   } catch (err) {
     console.error(err);
   }
+  console.log('ключь лайка',productId);
+  
+
 };
+
 
 const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0, views = 0 }) => {
   try {
-    await fetch("https://iefhie.onrender.com/likos/reaction", { 
+    await fetch("http://localhost:8000/likos/reaction", { 
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ deviceId, productId, likeCount: deviceLike, dizlace: deviceDislike, views })
     });
+    console.log('логика лайков',productId,deviceLike,deviceDislike,);
+    
+    
   } catch (err) {
     console.error("sendDeviceReaction:", err);
   }
+
 };
 
 
   
-  const handleLike = async (productId) => {
+  const handleLike = async (productId ,index) => {
     const cur = reactions[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,   };
+      setSelectedIndex(index );
+
+      console.log(`Реакция на фото №${index + 1}: ${productId}`);
 
     
     let likeDelta = 0, dizDelta = 0;
@@ -150,10 +177,13 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     } else {
       likeDelta = -1;
     }
+  
+     console.log(productId);
 
     
     setReactions(prev => {
       const agg = prev[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,   };
+      
       return {
         ...prev,
         [productId]: {
@@ -162,9 +192,18 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
           dizlace: agg.dizlace + dizDelta,
           liked: newLiked,
           disliked: newDisliked
-        }
+          
+        }  
       };
+      
+     
+    
+     
     });
+ 
+ 
+    
+    
 
     
     const deviceLike = newLiked ? 1 : 0;
@@ -173,11 +212,19 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
     
     await fetchReactions(productId);
+   
+
+   
+    
   };
 
+
   
-  const handleDislike = async (productId) => {
+  const handleDislike = async (productId ,index) => {
     const cur = reactions[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false, };
+    setSelectedIndex(index );
+    console.log(`Реакция на фото №${index + 1}: ${productId}`);
+
 
     let dizDelta = 0, likeDelta = 0;
     const newDisliked = !cur.disliked;
@@ -191,6 +238,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     } else {
       dizDelta = -1;
     }
+     
 
     setReactions(prev => {
       const agg = prev[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,  };
@@ -210,6 +258,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     const deviceDislike = newDisliked ? 1 : 0;
     await sendDeviceReaction({ productId, deviceLike, deviceDislike,  });
     await fetchReactions(productId);
+     console.log(newDisliked);
   };
 
   
@@ -300,6 +349,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
           }}
         />
       </div>
+      
 
     
       <div className="ml-4 flex flex-col text-left z-10 drop-shadow-lg ">
@@ -373,6 +423,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
         <motion.div className="w-[100%] flex justify-center" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <div className="flex flex-wrap justify-center gap-8 max-w-[100%]">
             {products.map((product, index) => {
+          
               const g = ["linear-gradient(120deg, #f59e0b, #3b82f6)",
                          "linear-gradient(120deg, #9333ea, #10b981)",
                          "linear-gradient(120deg, #f43f5e, #fbbf24)",
@@ -411,13 +462,15 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
  <div className="w-full h-44 sm:h-52 md:h-56 lg:h-60 mb-4 overflow-hidden rounded-2xl border border-white/30 shadow-xl relative">
 
 
-    <ImageWithSkeleton
-    src={`https://iefhie.onrender.com/portfol${product.img}`}
+    <Image
+    src={`http://localhost:8000/portfol${product.img}`}
     alt={product.name || "Preview"}
     width={400}
     height={300}
     className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+    
   />
+  
     
 
 
@@ -513,7 +566,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 <div className="flex  justify-center gap-6 p-4">
  
   <motion.button
-    onClick={() => handleLike(product._id)}
+    onClick={() => handleLike(product._id ,index)}
     className={`
       cursor-pointer
       flex items-center justify-center gap-2
@@ -528,11 +581,12 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     animate={{ scale: r.liked ? 1.2 : 1 }}
   >
     👍 {r.likeCount || 0}
+    
   </motion.button>
 
   
   <motion.button
-    onClick={() => handleDislike(product._id)}
+    onClick={() => handleDislike(product._id ,index)}
     className={`
       cursor-pointer
       flex items-center justify-center gap-2
