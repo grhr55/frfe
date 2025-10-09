@@ -129,12 +129,12 @@ const fetchReactions = async (productId) => {
 
   
 
-      console.log("🧠 Обновляем реакции:", productId, { likeCount, dizlace, liked, disliked });
+     
 
   } catch (err) {
     console.error(err);
   }
-  console.log('ключь лайка',productId);
+
   
 
 };
@@ -147,7 +147,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ deviceId, productId, likeCount: deviceLike, dizlace: deviceDislike, views })
     });
-    console.log('логика лайков',productId,deviceLike,deviceDislike,);
+ 
     
     
   } catch (err) {
@@ -162,7 +162,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     const cur = reactions[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false,   };
       setSelectedIndex(index );
 
-      console.log(`Реакция на фото №${index + 1}: ${productId}`);
+    
 
     
     let likeDelta = 0, dizDelta = 0;
@@ -178,7 +178,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
       likeDelta = -1;
     }
   
-     console.log(productId);
+  
 
     
     setReactions(prev => {
@@ -223,7 +223,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
   const handleDislike = async (productId ,index) => {
     const cur = reactions[productId] || { likeCount: 0, dizlace: 0, liked: false, disliked: false, };
     setSelectedIndex(index );
-    console.log(`Реакция на фото №${index + 1}: ${productId}`);
+    
 
 
     let dizDelta = 0, likeDelta = 0;
@@ -258,7 +258,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     const deviceDislike = newDisliked ? 1 : 0;
     await sendDeviceReaction({ productId, deviceLike, deviceDislike,  });
     await fetchReactions(productId);
-     console.log(newDisliked);
+  
   };
 
   
