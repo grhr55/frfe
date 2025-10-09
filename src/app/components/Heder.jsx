@@ -394,7 +394,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
   <h1 className="text-[clamp(33px,9vw,70px)] font-extrabold mb-4 mt-[60px] drop-shadow-lg leading-tight text-center">
     <ReactTyped
       strings={[
-        "Hi, I'm a Full-Stack Developer + SEO",
+        "Hi, I'm a Full-Stack Developer-SEO",
         "I work with you or our guarantees",
       ]}
       typeSpeed={50}
