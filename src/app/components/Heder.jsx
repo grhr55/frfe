@@ -54,7 +54,7 @@ export default function FullStackPortfolio() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:8000/portfol/porf");
+      const res = await fetch("https://iefhie.onrender.com/portfol/porf");
       if (!res.ok) throw new Error("Ошибка загрузки данных портфеля");
       const data = await res.json();
       setProducts(data);
@@ -89,7 +89,7 @@ const fetchReactions = async (productId) => {
   try {
     if (!productId) return;
 
-    const res = await fetch(`http://localhost:8000/likos/lice/${productId}`);
+    const res = await fetch(`https://iefhie.onrender.com/likos/lice/${productId}`);
     if (!res.ok) throw new Error("Ошибка загрузки реакций");
     const arr = await res.json();
 
@@ -142,7 +142,7 @@ const fetchReactions = async (productId) => {
 
 const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0, views = 0 }) => {
   try {
-    await fetch("http://localhost:8000/likos/reaction", { 
+    await fetch("https://iefhie.onrender.com/likos/reaction", { 
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ deviceId, productId, likeCount: deviceLike, dizlace: deviceDislike, views })
@@ -463,7 +463,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
 
     <Image
-    src={`http://localhost:8000/portfol${product.img}`}
+    src={`https://iefhie.onrender.com/portfol${product.img}`}
     alt={product.name || "Preview"}
     width={400}
     height={300}

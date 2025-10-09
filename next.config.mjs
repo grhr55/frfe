@@ -1,6 +1,6 @@
 export default {
   images: {
-    domains: ['localhost'],
+    domains: ['iefhie.onrender.com'],
   },
  
 };
