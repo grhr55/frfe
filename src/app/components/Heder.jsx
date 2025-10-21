@@ -54,7 +54,7 @@ export default function FullStackPortfolio() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("https://iefhie.onrender.com/portfol/porf");
+      const res = await fetch("https://frfe.onrender.com/portfol/porf");
       if (!res.ok) throw new Error("Ошибка загрузки данных портфеля");
       const data = await res.json();
       setProducts(data);
@@ -89,7 +89,7 @@ const fetchReactions = async (productId) => {
   try {
     if (!productId) return;
 
-    const res = await fetch(`https://iefhie.onrender.com/likos/lice/${productId}`);
+    const res = await fetch(`https://frfe.onrender.com/likos/lice/${productId}`);
     if (!res.ok) throw new Error("Ошибка загрузки реакций");
     const arr = await res.json();
 
@@ -142,7 +142,7 @@ const fetchReactions = async (productId) => {
 
 const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0, views = 0 }) => {
   try {
-    await fetch("https://iefhie.onrender.com/likos/reaction", { 
+    await fetch("https://frfe.onrender.com/likos/reaction", { 
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ deviceId, productId, likeCount: deviceLike, dizlace: deviceDislike, views })
@@ -463,7 +463,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
 
     <Image
-    src={`https://iefhie.onrender.com/portfol${product.img}`}
+    src={`https://frfe.onrender.com/portfol${product.img}`}
     alt={product.name || "Preview"}
     width={400}
     height={300}
@@ -506,7 +506,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
 
 <div className="space-y-4 mb-6 p-4 sm:p-6 bg-black/5 rounded-2xl shadow-lg text-left text-[clamp(14px,2vw,18px)]">
   
-  {/* Complexity */}
+ 
   
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">⚙️</span>
@@ -518,14 +518,14 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     </div>
   </div>
 
-  {/* Adaptation */}
+
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">📱</span>
     <span className="font-bold text-[clamp(10px,4vw,20px)]">Adaptation:</span>
     <span className="flex-1 font-black break-words text-[clamp(14px,6vw,20px)]">1920 to 350</span>
   </div>
 
-  {/* SEO */}
+  
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">🔎</span>
     <span className="font-semibold text-[clamp(20px,8vw,20px)]">SEO:</span>
@@ -536,7 +536,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
       </span>
   </div>
 
-  {/* Производительность */}
+ 
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">⚡</span>
     <span className="font-semibold text-[clamp(14px,5vw,20px)]">Performance:</span>
@@ -549,7 +549,7 @@ const sendDeviceReaction = async ({ productId, deviceLike = 0, deviceDislike = 0
     </div>
   </div>
 
-  {/* Технологии */}
+
   <div className="flex flex-wrap items-center gap-2">
     <span className="text-[clamp(16px,4vw,20px)]">🛠️</span>
     <span className="font-bold text-[clamp(20px,8vw,20px)]">Technologies:</span>
