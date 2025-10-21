@@ -14,7 +14,7 @@ pnpm dev
 bun dev
 ```
 
-Open [https://frfe-1.onrender.com](https://frfe-1.onrender.com) with your browser to see the result.
+Open [https://iefhie-zw3s.onrender.com](https://iefhie-zw3s.onrender.com) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
