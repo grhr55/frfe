@@ -1,6 +1,6 @@
 export default {
   images: {
-    domains: ['frfe.onrender.com'],
+    domains: ['iefhie-zw3s.onrender.com'],
   },
  
 };
